@@ -1,8 +1,4 @@
 /build/
 /.idea/
 /.gradle/
-build.gradle
 out/
-gradle/
-gradlew
-gradlew.bat
