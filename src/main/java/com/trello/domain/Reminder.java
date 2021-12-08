@@ -9,6 +9,6 @@ public class Reminder {
     private Long id;
     private LocalDateTime start;
     private LocalDateTime end;
-    private RemindOn remindOn;
+    private String remindOn;
     private boolean isActtive;
 }
