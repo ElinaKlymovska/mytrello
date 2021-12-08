@@ -1,4 +1,4 @@
-package domain;
+package com.trello.domain;
 
 import lombok.Data;
 
@@ -9,6 +9,6 @@ public class Reminder {
     private Long id;
     private LocalDateTime start;
     private LocalDateTime end;
-    private LocalDateTime remindOn;
+    private RemindOn remindOn;
     private boolean isActtive;
 }

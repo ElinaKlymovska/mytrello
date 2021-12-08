@@ -1,4 +1,4 @@
-package domain;
+package com.trello.domain;
 
 import lombok.Data;
 
@@ -17,5 +17,5 @@ public class Card {
     private List<Comment> comments;
     private Reminder reminder;
     private List<Checklist> checklists;
-    private LocalDateTime localDateTime;
+    private LocalDateTime creationDate;
 }

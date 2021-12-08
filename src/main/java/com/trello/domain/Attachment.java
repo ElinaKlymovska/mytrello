@@ -1,4 +1,4 @@
-package domain;
+package com.trello.domain;
 
 import lombok.*;
 

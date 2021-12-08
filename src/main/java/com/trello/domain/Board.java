@@ -1,4 +1,4 @@
-package domain;
+package com.trello.domain;
 
 import lombok.Data;
 
@@ -9,9 +9,9 @@ public class Board {
     private Long id;
     private String name;
     private String description;
-    private List<CardList> cardListList;
+    private List<CardList> cardLists;
     private List<Member> members;
-    private BoardVisibilityEnum visibility;
-    private boolean favounteStatus;
+    private BoardVisibility visibility;
+    private boolean isFavourite;
     private boolean isArchived;
 }
