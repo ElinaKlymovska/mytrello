@@ -1,10 +1,12 @@
-package com.trello.domain;
+package spd.trello.domain;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class Member {
-    private Long id;
+    private UUID id;
     private User user;
     private RoleEnum role;
 }

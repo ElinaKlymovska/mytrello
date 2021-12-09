@@ -1,14 +1,15 @@
-package com.trello.domain;
+package spd.trello.domain;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class Reminder {
-    private Long id;
+    private UUID id;
     private LocalDateTime start;
     private LocalDateTime end;
-    private String remindOn;
-    private boolean isActtive;
+    private LocalDateTime remindOn;
+    private Boolean acttive;
 }
