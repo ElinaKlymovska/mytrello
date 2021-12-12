@@ -1,13 +1,13 @@
 package spd.trello.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.TimeZone;
-import java.util.UUID;
 
 @Data
-public class User {
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class User extends Domain{
     private String firstName;
     private String lastName;
     private String email;

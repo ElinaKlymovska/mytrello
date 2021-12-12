@@ -2,11 +2,11 @@ package spd.trello.domain;
 
 import lombok.Data;
 
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CheckableItem {
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class CheckableItem extends Domain {
     private String name;
     private Boolean checkedSwitcher;
 }

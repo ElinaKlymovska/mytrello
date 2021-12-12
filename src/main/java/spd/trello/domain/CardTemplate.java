@@ -2,9 +2,9 @@ package spd.trello.domain;
 
 import lombok.Data;
 
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CardTemplate{
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class CardTemplate extends Resource{
 }

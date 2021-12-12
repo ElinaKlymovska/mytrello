@@ -1,12 +1,11 @@
 package spd.trello.domain;
 
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Label {
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class Label extends Domain {
     private String name;
     private Color color;
 }
