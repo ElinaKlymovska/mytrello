@@ -1,6 +1,6 @@
 package spd.trello.service;
 
-import spd.trello.domain.Board;
+import spd.trello.domain.Resource;
 
 public abstract class ServiceLayer <T> {
     
