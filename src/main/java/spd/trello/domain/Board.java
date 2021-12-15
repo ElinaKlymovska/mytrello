@@ -1,18 +1,19 @@
 package spd.trello.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Data
-public class Board {
-    private UUID id;
-    private String name;
-    private String description;
-    private List<CardList> cardLists;
-    private List<Member> members;
-    private BoardVisibility visibility;
-    //private Boolean isFavourite; //TODO
-    private Boolean archived;
+@EqualsAndHashCode(callSuper = true)
+public class Board extends Resource {
+    private String name = "";
+    private String description = "";
+    private List<CardList> cardLists = new ArrayList<>();
+    private List<Member> members = new ArrayList<>();
+    private BoardVisibility visibility = BoardVisibility.PUBLIC;
+    //private Boolean favourite; //TODO
+    private Boolean archived = false;
 }

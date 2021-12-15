@@ -3,11 +3,12 @@ package spd.trello.domain;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
+
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Reminder {
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class Reminder extends Resource{
     private LocalDateTime start;
     private LocalDateTime end;
     private LocalDateTime remindOn;

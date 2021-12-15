@@ -3,11 +3,12 @@ package spd.trello.domain;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
+
+import lombok.EqualsAndHashCode;
 
 @Data
-public class Checklist {
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class Checklist extends Resource{
     private String name;
     private List<CheckableItem> items;
 }

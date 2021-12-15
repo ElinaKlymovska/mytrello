@@ -1,10 +1,10 @@
 package spd.trello.domain;
 
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class BoardTemplate{
-    private UUID id;
+@EqualsAndHashCode(callSuper = true)
+public class BoardTemplate extends Resource {
+
 }
