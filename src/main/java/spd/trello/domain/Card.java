@@ -10,8 +10,8 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Card extends Resource {
-    private String name = "";
-    private String description = "";
+    private String name;
+    private String description;
     private List<Member> assignedMembers = new ArrayList<>();
     private List<Label> labels = new ArrayList<>();
     private List<Attachment> attachments = new ArrayList<>();

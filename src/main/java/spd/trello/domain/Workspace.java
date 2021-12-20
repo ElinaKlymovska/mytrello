@@ -13,5 +13,5 @@ public class Workspace extends Resource{
     private List<Board> boards;
     private List<Member> members;
     private String description;
-    private WorkspaceVisibility visibility;
+    private WorkspaceVisibility visibility= WorkspaceVisibility.PRIVATE;
 }
