@@ -1,0 +1,38 @@
+V20__correction_tables.sqlALTER TABLE users  TO user;
+ALTER TABLE user RENAME COLUMN firstName TO first_name;
+ALTER TABLE user RENAME COLUMN lastName TO last_name;
+ALTER TABLE user RENAME COLUMN timeZone TO time_zone;
+ALTER TABLE user ALTER COLUMN first_name TYPE VARCHAR(20);
+ALTER TABLE user ALTER COLUMN last_name TYPE VARCHAR(30);
+ALTER TABLE user ALTER COLUMN email TYPE VARCHAR(30);
+ALTER TABLE members RENAME TO member;
+ALTER TABLE member RENAME COLUMN roles TO role;
+ALTER TABLE member ALTER COLUMN role TYPE VARCHAR(10);
+DROP TYPE roles;
+ALTER TABLE colors RENAME TO color;
+ALTER TABLE labels RENAME TO label;
+ALTER TABLE label ALTER COLUMN name TYPE VARCHAR(20);
+ALTER TABLE workspaces RENAME TO workspace;
+ALTER TABLE workspace RENAME COLUMN createdBy TO created_by;
+ALTER TABLE workspace RENAME COLUMN updatedBy TO updated_by;
+ALTER TABLE workspace RENAME COLUMN createdDate TO created_date;
+ALTER TABLE workspace RENAME COLUMN updatedDate TO updated_date;
+ALTER TABLE workspaces ALTER COLUMN name TYPE VARCHAR(20);
+ALTER TABLE workspaces ALTER COLUMN description TYPE VARCHAR(200);
+ALTER TABLE workspaces ALTER COLUMN visibility TYPE VARCHAR(20);
+ALTER TABLE workspaces ALTER COLUMN created_by TYPE VARCHAR(25);
+ALTER TABLE workspaces ALTER COLUMN updated_by TYPE VARCHAR(25);
+DROP TYPE workspaceVisibility;
+ALTER TABLE boards RENAME TO board;
+ALTER TABLE board ALTER COLUMN name TYPE VARCHAR(20);
+ALTER TABLE board ALTER COLUMN description TYPE VARCHAR(200);
+ALTER TABLE board ALTER COLUMN visibility TYPE VARCHAR(20);
+ALTER TABLE board RENAME COLUMN createdBy TO created_by;
+ALTER TABLE board RENAME COLUMN updatedBy TO updated_by;
+ALTER TABLE board RENAME COLUMN createdDate TO created_date;
+ALTER TABLE board RENAME COLUMN updatedDate TO updated_date;
+ALTER TABLE board ALTER COLUMN created_by TYPE VARCHAR(25);
+ALTER TABLE board ALTER COLUMN updated_by TYPE VARCHAR(25);
+DROP TYPE boardVisibility;
+
+

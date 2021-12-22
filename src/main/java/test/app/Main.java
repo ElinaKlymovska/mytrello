@@ -1,51 +1,23 @@
 package test.app;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import org.flywaydb.core.Flyway;
-import spd.trello.domain.Card;
-import spd.trello.service.BoardService;
-import spd.trello.service.CardService;
+import spd.trello.domain.Workspace;
+import spd.trello.domain.WorkspaceVisibility;
+import spd.trello.repository.WorkspaceDAO;
+import spd.trello.repository.WorkspaceRepo;
 
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import java.time.LocalDateTime;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        new BoardService().print(new BoardService().create());
-        CardService cardService = new CardService();
-        Card card =cardService.create();
-        card.setName("new Name");
-        cardService.update(0,card);
-        cardService.print(card);
-
-        DataSource dataSource = createDataSource();
-
-        Flyway flyway = createFlyway(dataSource);
-        flyway.migrate();
-    }
-
-    private static Flyway createFlyway(DataSource dataSource){
-       return Flyway.configure().dataSource(dataSource).load();
-    }
-
-    private static Properties loadProperties() throws IOException {
-        InputStream in = Main.class.getClassLoader().getResourceAsStream("application.properties");
-        Properties properties = new Properties();
-        properties.load(in);
-        return properties;
-    }
-
-    private static DataSource createDataSource() throws IOException {
-        Properties properties = loadProperties();
-
-        HikariConfig cfg = new HikariConfig();
-        cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
-        cfg.setUsername(properties.getProperty("jdbc.username"));
-        cfg.setPassword(properties.getProperty("jdbc.password"));
-
-        return new HikariDataSource(cfg);
+    public static void main(String[] args){
+        DataBaseConfiguration.startMigration();
+        Workspace workspace = new Workspace();
+        workspace.setName("FirstWorkspace");
+        workspace.setDescription("My lovely project about jdbc,flyway,database");
+        workspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        workspace.setCreatedBy("klymovska.elina@gmail.com");
+        workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        workspace.setCreatedDate(LocalDateTime.now());
+        workspace.setUpdatedDate(LocalDateTime.now());
+        new WorkspaceDAO().save(workspace);
     }
 }
