@@ -7,9 +7,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Resource extends Domain{
-    private User createdBy;
-    private User updatedBy;
+public abstract class Resource extends Domain{
+    private String createdBy;
+    private String updatedBy;
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime updatedDate;
 }

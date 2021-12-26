@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Board extends Resource {
-    private String name = "";
-    private String description = "";
+    private String name;
+    private String description;
     private List<CardList> cardLists = new ArrayList<>();
     private List<Member> members = new ArrayList<>();
     private BoardVisibility visibility = BoardVisibility.PUBLIC;

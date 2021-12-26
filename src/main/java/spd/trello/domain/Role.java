@@ -1,5 +1,5 @@
 package spd.trello.domain;
 
-public enum RoleEnum {
+public enum Role {
     GUEST, MEMBER, ADMIN
 }
