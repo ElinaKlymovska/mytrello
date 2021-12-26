@@ -1,10 +1,11 @@
 package spd.trello.repository;
 
-import org.flywaydb.core.internal.jdbc.JdbcTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.Workspace;
 import test.app.DataBaseConfiguration;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 public class WorkspaceDAO {
@@ -12,51 +13,34 @@ public class WorkspaceDAO {
     private JdbcTemplate jdbcTemplate;
 
     public WorkspaceDAO() {
-        try {
-            this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource().getConnection());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
-    public Workspace read(UUID id)  {
-        Workspace workspace=null;
-        try {
-            workspace= jdbcTemplate.query("SELECT * FROM workspace WHERE id=?", new WorkspaseMapper(), id)
-                    .stream().findFirst().orElse(null);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public List<Workspace> getAll() {
+        return jdbcTemplate.query("SELECT * FROM workspace", new BeanPropertyRowMapper<>(Workspace.class));
+    }
+
+    public Workspace getById(UUID id) {
+        Workspace workspace = jdbcTemplate.query("SELECT * FROM workspace WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Workspace.class))
+                .stream().findFirst().orElse(null);
         return workspace;
     }
 
     public void save(Workspace workspace) {
-        try {
-            jdbcTemplate.update("INSERT INTO workspace VALUES(?,?,?,?,?,?,?,?)",workspace.getId(),
-                    workspace.getName(), workspace.getDescription(), workspace.getVisibility().toString(), workspace.getCreatedBy(),
-                    workspace.getUpdatedBy(), workspace.getCreatedDate(), workspace.getUpdatedDate());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        jdbcTemplate.update("INSERT INTO workspace(id,name,description,visibility,created_by,updated_by,created_date,updated_date)" +
+                        " VALUES(?,?,?,?,?,?,?,?)", workspace.getId(), workspace.getName(), workspace.getDescription(), workspace.getVisibility().toString(),
+                workspace.getCreatedBy(), workspace.getUpdatedBy(), workspace.getCreatedDate(), workspace.getUpdatedDate());
     }
 
     public void update(UUID id, Workspace updatedWorkspace) {
-        try {
-            jdbcTemplate.update("UPDATE workspace SET name=?, description=?, visibility=?, " +
-                            "createdBy=?,updatedBy=?,createdDate=?,updatedDate=? WHERE id=?", updatedWorkspace.getName(),
-                    updatedWorkspace.getDescription(), updatedWorkspace.getVisibility(), updatedWorkspace.getCreatedBy(),
-                    updatedWorkspace.getUpdatedBy(), updatedWorkspace.getCreatedDate(), updatedWorkspace.getUpdatedDate(), id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        jdbcTemplate.update("UPDATE workspace SET name=?, description=?, visibility=?, " +
+                        "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updatedWorkspace.getName(),
+                updatedWorkspace.getDescription(), updatedWorkspace.getVisibility().toString(), updatedWorkspace.getCreatedBy(),
+                updatedWorkspace.getUpdatedBy(), updatedWorkspace.getCreatedDate(), updatedWorkspace.getUpdatedDate(), id);
     }
 
     public void delete(UUID id) {
-        try {
-            jdbcTemplate.update("DELETE FROM workspace WHERE id=?", id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        jdbcTemplate.update("DELETE FROM workspace WHERE id=?", id);
     }
 }
 
