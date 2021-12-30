@@ -18,5 +18,5 @@ public class Card extends Resource {
     private Boolean archived = false;
     private List<Comment> comments = new ArrayList<>();
     private Reminder reminder = new Reminder();
-    private List<Checklist> checklists = new ArrayList<>();
+    private List<CheckList> checklists = new ArrayList<>();
 }

@@ -5,4 +5,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class Color extends Domain{
+    private String color;
 }
