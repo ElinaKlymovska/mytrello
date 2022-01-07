@@ -2,7 +2,7 @@ package spd.trello.service;
 
 import spd.trello.domain.Workspace;
 import spd.trello.domain.WorkspaceVisibility;
-import spd.trello.repository.WorkspaceDAO;
+import spd.trello.repository.IRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,15 +10,14 @@ import java.util.UUID;
 
 public class WorkspaceService extends ServiceLayer<Workspace> {
 
-    private final WorkspaceDAO workspaceDAO;
 
-    public WorkspaceService() {
-        workspaceDAO=new WorkspaceDAO();
+    public WorkspaceService(IRepository<Workspace> repository) {
+        super(repository);
     }
 
     @Override
     public Workspace readById(UUID id) {
-        return workspaceDAO.getById(id);
+        return repository.getById(id);
     }
 
     @Override
@@ -31,22 +30,22 @@ public class WorkspaceService extends ServiceLayer<Workspace> {
         workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedDate(LocalDateTime.now());
-        workspaceDAO.save(workspace);
+        repository.save(workspace);
         return workspace;
     }
 
     @Override
     public void update(UUID id,Workspace updated_workspace) {
-        workspaceDAO.update(id, updated_workspace);
+        repository.update(id, updated_workspace);
     }
 
     @Override
     public void delete(UUID id) {
-        workspaceDAO.delete(id);
+        repository.delete(id);
     }
 
     @Override
     public List<Workspace> getAll() {
-        return workspaceDAO.getAll();
+        return repository.getAll();
     }
 }

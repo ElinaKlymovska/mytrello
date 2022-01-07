@@ -1,4 +1,4 @@
-package test.app;
+package spd.trello.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -26,7 +26,7 @@ public class DataBaseConfiguration {
     }
 
     private static Flyway createFlyway(DataSource dataSource) {
-        return Flyway.configure().dataSource(dataSource).load();
+        return Flyway.configure().locations("classpath:migrations").dataSource(dataSource).load();
     }
 
     private static Properties loadProperties() throws IOException {

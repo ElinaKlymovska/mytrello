@@ -3,15 +3,18 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.Attachment;
-import test.app.DataBaseConfiguration;
+import spd.trello.config.DataBaseConfiguration;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class AttachmentDAO {
-    private JdbcTemplate jdbcTemplate;
+public class AttachmentDAO implements IRepository<Attachment> {
+    private final JdbcTemplate jdbcTemplate;
+    private final DataSource dataSource;
 
-    public AttachmentDAO() {
+    public AttachmentDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 

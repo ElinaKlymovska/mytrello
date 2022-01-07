@@ -1,25 +1,21 @@
 package spd.trello.service;
 
 import spd.trello.domain.Card;
-import spd.trello.domain.Workspace;
-import spd.trello.domain.WorkspaceVisibility;
-import spd.trello.repository.CardDAO;
-import spd.trello.repository.WorkspaceDAO;
-
+import spd.trello.repository.IRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 public class CardService extends ServiceLayer<Card> {
-    private final CardDAO cardDAO;
 
-    public CardService() {
-        cardDAO =new CardDAO();
+
+    public CardService(IRepository<Card> repository) {
+        super(repository);
     }
 
     @Override
     public Card readById(UUID id) {
-        return cardDAO.getById(id);
+        return repository.getById(id);
     }
 
     @Override
@@ -32,7 +28,7 @@ public class CardService extends ServiceLayer<Card> {
         card.setUpdatedBy("myfeatureknowlange@gmail.com");
         card.setCreatedDate(LocalDateTime.now());
         card.setUpdatedDate(LocalDateTime.now());
-        cardDAO.save(card);
+        repository.save(card);
         return card;
     }
 
@@ -45,16 +41,16 @@ public class CardService extends ServiceLayer<Card> {
         updatedCard.setUpdatedBy("myfeatureknowlange@gmail.com");
         updatedCard.setCreatedDate(LocalDateTime.now());
         updatedCard.setUpdatedDate(LocalDateTime.now());
-        cardDAO.update(id, updatedCard);
+        repository.update(id, updatedCard);
     }
 
     @Override
     public void delete(UUID id) {
-        cardDAO.delete(id);
+        repository.delete(id);
     }
 
     @Override
     public List<Card> getAll() {
-        return cardDAO.getAll();
+        return repository.getAll();
     }
 }

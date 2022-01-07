@@ -3,16 +3,20 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.CardList;
-import test.app.DataBaseConfiguration;
+import spd.trello.config.DataBaseConfiguration;
+import spd.trello.domain.CheckableItem;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class CardListDAO {
+public class CardListDAO implements IRepository<CardList>{
 
     private final JdbcTemplate jdbcTemplate;
+    private final DataSource dataSource;
 
-    public CardListDAO() {
+    public CardListDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 

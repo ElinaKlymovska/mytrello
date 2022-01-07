@@ -1,11 +1,16 @@
 package spd.trello.service;
 
-import spd.trello.domain.Resource;
+import spd.trello.repository.IRepository;
 
 import java.util.List;
 import java.util.UUID;
 
 public abstract class ServiceLayer <T> {
+    protected IRepository<T> repository;
+
+    public ServiceLayer(IRepository<T> repository) {
+        this.repository = repository;
+    }
 
     public abstract T readById(UUID id);
     public abstract T create();

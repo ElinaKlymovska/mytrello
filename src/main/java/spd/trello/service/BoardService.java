@@ -2,24 +2,21 @@ package spd.trello.service;
 
 import spd.trello.domain.Board;
 import spd.trello.domain.BoardVisibility;
-import spd.trello.domain.Card;
-import spd.trello.repository.BoardDAO;
-import spd.trello.repository.CardDAO;
+import spd.trello.repository.IRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 public class BoardService extends ServiceLayer<Board> {
-    private final BoardDAO boardDAO;
 
-    public BoardService() {
-        boardDAO = new BoardDAO();
+    public BoardService(IRepository<Board> repository) {
+        super(repository);
     }
 
     @Override
     public Board readById(UUID id) {
-        return boardDAO.getById(id);
+        return repository.getById(id);
     }
 
     @Override
@@ -33,23 +30,23 @@ public class BoardService extends ServiceLayer<Board> {
         board.setUpdatedBy("myfeatureknowlange@gmail.com");
         board.setCreatedDate(LocalDateTime.now());
         board.setUpdatedDate(LocalDateTime.now());
-        boardDAO.save(board);
+        repository.save(board);
         return board;
     }
 
     @Override
     public void update(UUID id, Board updatedBoard) {
-        boardDAO.update(id, updatedBoard);
+        repository.update(id, updatedBoard);
     }
 
     @Override
     public void delete(UUID id) {
-        boardDAO.delete(id);
+        repository.delete(id);
     }
 
     @Override
     public List<Board> getAll() {
-        return boardDAO.getAll();
+        return repository.getAll();
     }
 
 }

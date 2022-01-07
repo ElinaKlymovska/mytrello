@@ -3,15 +3,19 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.Color;
-import test.app.DataBaseConfiguration;
+import spd.trello.config.DataBaseConfiguration;
+import spd.trello.domain.Workspace;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class ColorDAO {
-    private JdbcTemplate jdbcTemplate;
+public class ColorDAO implements IRepository<Color> {
+    private final JdbcTemplate jdbcTemplate;
+    private final DataSource dataSource;
 
-    public ColorDAO() {
+    public ColorDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 

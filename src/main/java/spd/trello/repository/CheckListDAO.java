@@ -3,15 +3,19 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.CheckList;
-import test.app.DataBaseConfiguration;
+import spd.trello.config.DataBaseConfiguration;
+import spd.trello.domain.Workspace;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class CheckListDAO {
-    private JdbcTemplate jdbcTemplate;
+public class CheckListDAO implements IRepository<CheckList>{
+    private final JdbcTemplate jdbcTemplate;
+    private final DataSource dataSource;
 
-    public CheckListDAO() {
+    public CheckListDAO(DataSource dataSource) {
+        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
