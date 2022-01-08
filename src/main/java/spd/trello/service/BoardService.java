@@ -22,8 +22,8 @@ public class BoardService extends ServiceLayer<Board> {
     @Override
     public Board create() {
         Board board = new Board();
-        board.setName("FirstCard");
-        board.setDescription("My lovely project about with card");
+        board.setName("Board");
+        board.setDescription("Board for my future");
         board.setVisibility(BoardVisibility.PUBLIC);
         board.setArchived(false);
         board.setCreatedBy("klymovska.elina@gmail.com");

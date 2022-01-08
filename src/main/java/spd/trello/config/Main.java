@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Main {
     public static void main(String[] args) {
         DataBaseConfiguration.startMigration();
-        WorkspaceService workspaceService = new WorkspaceService(new WorkspaceDAO(DataBaseConfiguration.getDataSource()));
+/*        WorkspaceService workspaceService = new WorkspaceService(new WorkspaceDAO(DataBaseConfiguration.getDataSource()));
         workspaceService.create();
         Workspace updated_workspace = new Workspace();
         updated_workspace.setId(null);
@@ -25,7 +25,7 @@ public class Main {
         updated_workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
         updated_workspace.setCreatedDate(LocalDateTime.now());
         updated_workspace.setUpdatedDate(LocalDateTime.now());
-        workspaceService.update(workspaceService.create().getId(),updated_workspace);
+        workspaceService.update(workspaceService.create().getId(),updated_workspace);*/
 
 /*        BoardService boardService = new BoardService();
         boardService.create();

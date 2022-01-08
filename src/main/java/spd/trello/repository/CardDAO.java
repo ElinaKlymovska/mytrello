@@ -35,7 +35,7 @@ public class CardDAO implements IRepository<Card>{
     }
 
     public void update(UUID id, Card updatedCard) {
-        jdbcTemplate.update("UPDATE card SET name=?, description=?, visibility=?, " +
+        jdbcTemplate.update("UPDATE card SET name=?, description=?, archived=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updatedCard.getName(),
                 updatedCard.getDescription(), updatedCard.getArchived(), updatedCard.getCreatedBy(),
                 updatedCard.getUpdatedBy(), updatedCard.getCreatedDate(), updatedCard.getUpdatedDate(), id);

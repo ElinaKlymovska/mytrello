@@ -5,7 +5,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
 
-public abstract class BaseTest {
+public abstract class  BaseTest {
 
 	protected static HikariDataSource dataSource;
 
@@ -18,7 +18,7 @@ public abstract class BaseTest {
 		cfg.setDriverClassName("org.h2.Driver");
 		dataSource = new HikariDataSource(cfg);
 		Flyway flyway = Flyway.configure()
-				.locations("classpath:migrations")
+				.locations("classpath:migration")
 				.dataSource(dataSource)
 				.load();
 		flyway.migrate();

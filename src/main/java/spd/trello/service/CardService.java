@@ -34,13 +34,6 @@ public class CardService extends ServiceLayer<Card> {
 
     @Override
     public void update(UUID id,Card updatedCard) {
-        updatedCard.setName("NewWorkspace");
-        updatedCard.setDescription("new challenges");
-        updatedCard.setArchived(true);
-        updatedCard.setCreatedBy("klymovska.elina@gmail.com");
-        updatedCard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        updatedCard.setCreatedDate(LocalDateTime.now());
-        updatedCard.setUpdatedDate(LocalDateTime.now());
         repository.update(id, updatedCard);
     }
 

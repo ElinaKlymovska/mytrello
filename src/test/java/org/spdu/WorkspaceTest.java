@@ -64,7 +64,7 @@ public class WorkspaceTest extends BaseTest {
         List<Workspace> all = service.getAll();
         assertNotNull(all);
         assertAll(
-                () -> assertEquals(service.readById(id), all.stream().filter(w -> w.getId().equals(id)).findAny().orElse(null)),
+                () -> assertEquals(service.readById(id), all.stream().filter(w -> w.getId().equals(id)).findFirst().orElse(null)),
                 () -> assertEquals(service.readById(id1), all.stream().filter(w -> w.getId().equals(id1)).findFirst().orElse(null)),
                 () -> assertEquals(null, all.stream().filter(w -> w.getId().equals(UUID.randomUUID())).findAny().orElse(null))
         );
