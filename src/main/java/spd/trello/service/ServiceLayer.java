@@ -1,7 +1,9 @@
 package spd.trello.service;
 
+import spd.trello.domain.Resource;
 import spd.trello.repository.IRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 

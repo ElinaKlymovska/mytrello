@@ -18,7 +18,7 @@ public abstract class  BaseTest {
 		cfg.setDriverClassName("org.h2.Driver");
 		dataSource = new HikariDataSource(cfg);
 		Flyway flyway = Flyway.configure()
-				.locations("classpath:migration")
+				.locations("classpath:migrations")
 				.dataSource(dataSource)
 				.load();
 		flyway.migrate();

@@ -2,7 +2,7 @@ CREATE TABLE attachments
 (
     id          UUID PRIMARY KEY,
     name        VARCHAR(225) NOT NULL,
-    file        path         NOT NULL,
+    file        VARCHAR(100),
 
     comment_id  UUID REFERENCES comments (id),
     card_id     UUID REFERENCES cards (id),

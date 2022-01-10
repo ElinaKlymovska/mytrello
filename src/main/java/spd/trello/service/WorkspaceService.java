@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public class WorkspaceService extends ServiceLayer<Workspace> {
 
-
     public WorkspaceService(IRepository<Workspace> repository) {
         super(repository);
     }

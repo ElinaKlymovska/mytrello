@@ -6,6 +6,7 @@ import spd.trello.domain.Attachment;
 import spd.trello.config.DataBaseConfiguration;
 
 import javax.sql.DataSource;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class AttachmentDAO implements IRepository<Attachment> {
 
     public void save(Attachment attachment) {
         jdbcTemplate.update("INSERT INTO attachment(id,name,file,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?)", attachment.getId(), attachment.getName(), attachment.getFile(),
+                        " VALUES(?,?,?,?,?,?,?)", attachment.getId(), attachment.getName(),attachment.getFile().getPath(),
                 attachment.getCreatedBy(), attachment.getUpdatedBy(), attachment.getCreatedDate(), attachment.getUpdatedDate());
     }
 

@@ -31,12 +31,13 @@ public class CommentDAO implements IRepository<Comment>{
     }
 
     public void save(Comment comment) {
-        jdbcTemplate.update("INSERT INTO comment(id,localDateTime) VALUES(?,?)",
-                comment.getId(), comment.getLocalDateTime());
+        jdbcTemplate.update("INSERT INTO comment(id,member_id,localdatetime,text,created_by,updated_by,created_date,updated_date)" +
+                        " VALUES(?,?,?,?,?,?,?,?)", comment.getId(),comment.getMember().getId(), comment.getLocalDateTime(), comment.getText(),comment.getCreatedBy(),
+                comment.getCreatedDate(),comment.getUpdatedBy(),comment.getUpdatedDate());
     }
 
     public void update(UUID id, Comment updatedComment) {
-        jdbcTemplate.update("UPDATE comment SET name=?, WHERE id=?",
+        jdbcTemplate.update("UPDATE comment SET member_id=?,localdatetime=?,text=?,created_by=?,updated_by=?,created_date=?,updated_date=?, WHERE id=?",
                 updatedComment.getLocalDateTime(), id);
     }
 
