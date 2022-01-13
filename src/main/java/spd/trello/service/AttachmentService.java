@@ -20,17 +20,8 @@ public class AttachmentService extends ServiceLayer<Attachment> {
     }
 
     @Override
-    public Attachment create() {
-        Attachment attachment = new Attachment();
-        attachment.setName("Attachment");
-        attachment.setLink("link");
-        attachment.setFile(new File("resources/SomeFile"));
-        attachment.setCreatedBy("klymovska.elina@gmail.com");
-        attachment.setCreatedDate(LocalDateTime.now());
-        attachment.setUpdatedBy("-");
-        attachment.setUpdatedDate(LocalDateTime.now());
-        repository.save(attachment);
-        return attachment;
+    public Attachment create(Attachment attachment) {
+        return repository.save(attachment);
     }
 
     @Override

@@ -4,19 +4,15 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.CardList;
 import spd.trello.config.DataBaseConfiguration;
-import spd.trello.domain.CheckableItem;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class CardListDAO implements IRepository<CardList>{
+public class CardListDAO implements IRepository<CardList> {
 
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
-    public CardListDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public CardListDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -29,16 +25,18 @@ public class CardListDAO implements IRepository<CardList>{
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(CardList cardList) {
+    public CardList save(CardList cardList) {
         jdbcTemplate.update("INSERT INTO cardlist(id,name,archived,created_by,updated_by,created_date,updated_date)" +
                         " VALUES(?,?,?,?,?,?,?)", cardList.getId(), cardList.getName(), cardList.getArchived(),
                 cardList.getCreatedBy(), cardList.getUpdatedBy(), cardList.getCreatedDate(), cardList.getUpdatedDate());
+        return cardList;
     }
 
-    public void update(UUID id, CardList updetedCardList) {
+    public CardList update(UUID id, CardList updetedCardList) {
         jdbcTemplate.update("UPDATE cardlist SET name=?, description=?, visibility=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updetedCardList.getName(),
                 updetedCardList.getArchived(), updetedCardList.getCreatedBy(), updetedCardList.getUpdatedBy(), updetedCardList.getCreatedDate(), updetedCardList.getUpdatedDate(), id);
+        return updetedCardList;
     }
 
     public void delete(UUID id) {

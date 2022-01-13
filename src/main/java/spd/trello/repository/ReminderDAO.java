@@ -4,19 +4,15 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Reminder;
-import spd.trello.domain.Workspace;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
 public class ReminderDAO implements IRepository<Reminder>{
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
-    public ReminderDAO(DataSource dataSource) {
+    public ReminderDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
-        this.dataSource = dataSource;
     }
 
     public List<Reminder> getAll() {
@@ -28,17 +24,19 @@ public class ReminderDAO implements IRepository<Reminder>{
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(Reminder reminder) {
+    public Reminder save(Reminder reminder) {
 
         jdbcTemplate.update("INSERT INTO reminder(id,start_at,end_at,remind_on,active,created_by,updated_by,created_date,updated_date)" +
                         " VALUES(?,?,?,?,?,?,?,?,?)", reminder.getId(), reminder.getStart(), reminder.getEnd(), reminder.getRemindOn(),reminder.getActtive(),
                 reminder.getCreatedBy(), reminder.getUpdatedBy(), reminder.getCreatedDate(), reminder.getUpdatedDate());
+        return reminder;
     }
 
-    public void update(UUID id, Reminder reminder) {
+    public Reminder update(UUID id, Reminder reminder) {
         jdbcTemplate.update("UPDATE reminder SET start_at=?, end_at=?, remind_on=?,active=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", reminder.getStart(), reminder.getEnd(), reminder.getRemindOn(),reminder.getActtive(),
                 reminder.getCreatedBy(), reminder.getUpdatedBy(), reminder.getCreatedDate(), reminder.getUpdatedDate(), id);
+        return reminder;
     }
 
     public void delete(UUID id) {

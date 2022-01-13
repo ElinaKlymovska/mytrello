@@ -10,12 +10,10 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class CardDAO implements IRepository<Card>{
+public class CardDAO implements IRepository<Card> {
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
-    public CardDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public CardDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -28,17 +26,22 @@ public class CardDAO implements IRepository<Card>{
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(Card card) {
-        jdbcTemplate.update("INSERT INTO card(id,name,description,archived,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?,?)", card.getId(), card.getName(), card.getDescription(), card.getArchived(),
+    public Card save(Card card) {
+        jdbcTemplate.update("INSERT INTO card(id,name,description,archived,reminder_id, cardlist_id," +
+                        "created_by,updated_by,created_date,updated_date)" +
+                        " VALUES(?,?,?,?,?,?,?,?,?,?)", card.getId(), card.getName(), card.getDescription(), card.getArchived(),
+                card.getReminder().getId(), card.getCardList().getId(),
                 card.getCreatedBy(), card.getUpdatedBy(), card.getCreatedDate(), card.getUpdatedDate());
+        return card;
     }
 
-    public void update(UUID id, Card updatedCard) {
-        jdbcTemplate.update("UPDATE card SET name=?, description=?, archived=?, " +
+    public Card update(UUID id, Card updatedCard) {
+        jdbcTemplate.update("UPDATE card SET name=?, description=?, archived=?,reminder_id=?, cardlist_id=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updatedCard.getName(),
-                updatedCard.getDescription(), updatedCard.getArchived(), updatedCard.getCreatedBy(),
+                updatedCard.getDescription(), updatedCard.getArchived(), updatedCard.getReminder().getId(),
+                updatedCard.getCardList().getId(), updatedCard.getCreatedBy(),
                 updatedCard.getUpdatedBy(), updatedCard.getCreatedDate(), updatedCard.getUpdatedDate(), id);
+        return updatedCard;
     }
 
     public void delete(UUID id) {

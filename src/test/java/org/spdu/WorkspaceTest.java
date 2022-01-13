@@ -17,14 +17,21 @@ public class WorkspaceTest extends BaseTest {
 
     private final WorkspaceService service;
 
-
     public WorkspaceTest() {
-        service = new WorkspaceService(new WorkspaceDAO(dataSource));
+        service = new WorkspaceService(new WorkspaceDAO());
     }
 
     @Test
     public void successCreate() {
-        Workspace workspace = service.create();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        Workspace workspace = service.create(testWorkspace);
         assertNotNull(workspace);
         assertAll(
                 () -> assertNotNull(workspace.getId()),
@@ -42,12 +49,20 @@ public class WorkspaceTest extends BaseTest {
     public void createFailure() {
         Workspace workspace = new Workspace();
         workspace.setName(null);
-        assertThrows(Exception.class, () -> new WorkspaceDAO(dataSource).save(workspace));
+        assertThrows(Exception.class, () -> new WorkspaceDAO().save(workspace));
     }
 
     @Test
     public void testFindById() {
-        UUID id = service.create().getId();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testWorkspace).getId();
         assertEquals(id, service.readById(id).getId());
     }
 
@@ -59,8 +74,24 @@ public class WorkspaceTest extends BaseTest {
 
     @Test
     public void testFindAll() {
-        UUID id = service.create().getId();
-        UUID id1 = service.create().getId();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testWorkspace).getId();
+        Workspace testWorkspace2 = new Workspace();
+        testWorkspace2.setName("SecondWorkspace");
+        testWorkspace2.setDescription("My lovely project about jdbc,flyway,database with two workspace");
+        testWorkspace2.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace2.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace2.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace2.setCreatedDate(LocalDateTime.now());
+        testWorkspace2.setUpdatedDate(LocalDateTime.now());
+        UUID id1 = service.create(testWorkspace2).getId();
         List<Workspace> all = service.getAll();
         assertNotNull(all);
         assertAll(
@@ -72,7 +103,15 @@ public class WorkspaceTest extends BaseTest {
 
     @Test
     public void successUpdate() {
-        Workspace initialWorkcpase = service.create();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        Workspace initialWorkcpase = service.create(testWorkspace);
 
         Workspace workspace = new Workspace();
         workspace.setName("TestWorkcpase");
@@ -97,7 +136,15 @@ public class WorkspaceTest extends BaseTest {
 
     @Test
     public void updateFailure() {
-        Workspace initialWorkcpase = service.create();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        Workspace initialWorkcpase = service.create(testWorkspace);
         Workspace workspace = new Workspace();
         workspace.setName(null);
         workspace.setDescription(null);
@@ -107,7 +154,15 @@ public class WorkspaceTest extends BaseTest {
 
     @Test
     public void successDelete() {
-        UUID id = service.create().getId();
+        Workspace testWorkspace = new Workspace();
+        testWorkspace.setName("FirstWorkspace");
+        testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
+        testWorkspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        testWorkspace.setCreatedBy("klymovska.elina@gmail.com");
+        testWorkspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testWorkspace.setCreatedDate(LocalDateTime.now());
+        testWorkspace.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testWorkspace).getId();
         assertEquals(service.readById(id),service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));
         service.delete(id);
         assertEquals(null,service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));

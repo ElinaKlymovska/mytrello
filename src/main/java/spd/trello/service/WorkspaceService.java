@@ -1,10 +1,8 @@
 package spd.trello.service;
 
 import spd.trello.domain.Workspace;
-import spd.trello.domain.WorkspaceVisibility;
 import spd.trello.repository.IRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,22 +18,13 @@ public class WorkspaceService extends ServiceLayer<Workspace> {
     }
 
     @Override
-    public Workspace create() {
-        Workspace workspace = new Workspace();
-        workspace.setName("FirstWorkspace");
-        workspace.setDescription("My lovely project about jdbc,flyway,database");
-        workspace.setVisibility(WorkspaceVisibility.PUBLIC);
-        workspace.setCreatedBy("klymovska.elina@gmail.com");
-        workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
-        workspace.setCreatedDate(LocalDateTime.now());
-        workspace.setUpdatedDate(LocalDateTime.now());
-        repository.save(workspace);
-        return workspace;
+    public Workspace create(Workspace workspace) {
+        return repository.save(workspace);
     }
 
     @Override
-    public void update(UUID id,Workspace updated_workspace) {
-        repository.update(id, updated_workspace);
+    public void update(UUID id,Workspace workspace) {
+        repository.update(id, workspace);
     }
 
     @Override

@@ -12,11 +12,9 @@ import java.util.UUID;
 public class LabelDAO implements IRepository<Label> {
 
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
     public LabelDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
-        this.dataSource = dataSource;
     }
 
     public List<Label> getAll() {
@@ -28,15 +26,17 @@ public class LabelDAO implements IRepository<Label> {
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(Label label) {
+    public Label save(Label label) {
 
         jdbcTemplate.update("INSERT INTO label(id,name,color_id)" +
                 " VALUES(?,?,?)", label.getId(), label.getName(), label.getColor().getId());
+        return label;
     }
 
-    public void update(UUID id, Label updatedLabel) {
+    public Label update(UUID id, Label updatedLabel) {
         jdbcTemplate.update("UPDATE label SET name=?, color_id=? WHERE id=?", updatedLabel.getName(),
                 updatedLabel.getColor().getId(), id);
+        return updatedLabel;
     }
 
     public void delete(UUID id) {

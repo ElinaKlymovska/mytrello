@@ -17,11 +17,10 @@ public class ColorService extends ServiceLayer<Color>{
     }
 
     @Override
-    public Color create() {
-        Color color = new Color();
-        color.setColor("F0F8FF");
-        repository.save(color);
-        return color;
+    public Color create(Color color) {
+/*        Color color = new Color();
+        color.setColor("F0F8FF");*/
+        return repository.save(color);
     }
 
     @Override

@@ -11,11 +11,9 @@ import java.util.UUID;
 
 public class CheckableItemDAO implements IRepository<CheckableItem>{
 
-    private final DataSource dataSource;
     private final JdbcTemplate jdbcTemplate;
 
     public CheckableItemDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -31,14 +29,16 @@ public class CheckableItemDAO implements IRepository<CheckableItem>{
 
     }
 
-    public void save(CheckableItem checkableItem) {
+    public CheckableItem save(CheckableItem checkableItem) {
         jdbcTemplate.update("INSERT INTO check_able_item(id,name,checked) VALUES(?,?,?)",
                 checkableItem.getId(), checkableItem.getName(), checkableItem.getCheckedSwitcher());
+        return checkableItem;
     }
 
-    public void update(UUID id, CheckableItem updatedAttachment) {
+    public CheckableItem update(UUID id, CheckableItem checkableItem) {
         jdbcTemplate.update("UPDATE check_able_item SET name=?, checked=?, WHERE id=?",
-                updatedAttachment.getName(), updatedAttachment.getCheckedSwitcher(), id);
+                checkableItem.getName(), checkableItem.getCheckedSwitcher(), id);
+        return checkableItem;
     }
 
     public void delete(UUID id) {

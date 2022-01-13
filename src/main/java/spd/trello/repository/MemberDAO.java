@@ -12,11 +12,9 @@ import java.util.UUID;
 
 public class MemberDAO implements IRepository<Member>{
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
     public MemberDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
-        this.dataSource = dataSource;
     }
 
     public List<Member> getAll() {
@@ -28,14 +26,16 @@ public class MemberDAO implements IRepository<Member>{
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(Member member) {
+    public Member save(Member member) {
         jdbcTemplate.update("INSERT INTO member(id,user_id,role) VALUES(?,?,?)", member.getId(), member.getUser().getId(),
                 member.getRole().toString());
+        return member;
     }
 
-    public void update(UUID id, Member updatedMember) {
+    public Member update(UUID id, Member updatedMember) {
         jdbcTemplate.update("UPDATE member SET name=?, user_id=?, role=? WHERE id=?", updatedMember.getUser().getId(),
                 updatedMember.getRole().toString(), id);
+        return updatedMember;
     }
 
     public void delete(UUID id) {

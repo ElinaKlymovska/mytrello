@@ -19,17 +19,8 @@ public class CardService extends ServiceLayer<Card> {
     }
 
     @Override
-    public Card create() {
-        Card card = new Card();
-        card.setName("FirstCard");
-        card.setDescription("My lovely project about with card");
-        card.setArchived(false);
-        card.setCreatedBy("klymovska.elina@gmail.com");
-        card.setUpdatedBy("myfeatureknowlange@gmail.com");
-        card.setCreatedDate(LocalDateTime.now());
-        card.setUpdatedDate(LocalDateTime.now());
-        repository.save(card);
-        return card;
+    public Card create(Card card) {
+        return repository.save(card);
     }
 
     @Override

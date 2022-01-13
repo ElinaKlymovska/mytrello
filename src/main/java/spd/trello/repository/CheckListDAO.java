@@ -12,10 +12,8 @@ import java.util.UUID;
 
 public class CheckListDAO implements IRepository<CheckList>{
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
     public CheckListDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -30,14 +28,16 @@ public class CheckListDAO implements IRepository<CheckList>{
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(CheckList checkList) {
+    public CheckList save(CheckList checkList) {
         jdbcTemplate.update("INSERT INTO checklist(id,name) VALUES(?,?)",
                 checkList.getId(), checkList.getName());
+        return checkList;
     }
 
-    public void update(UUID id, CheckList updatedCheckList) {
+    public CheckList update(UUID id, CheckList updatedCheckList) {
         jdbcTemplate.update("UPDATE checklist SET name=?, WHERE id=?",
                 updatedCheckList.getName(), id);
+        return updatedCheckList;
     }
 
     public void delete(UUID id) {

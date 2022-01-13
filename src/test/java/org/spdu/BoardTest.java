@@ -3,8 +3,12 @@ package org.spdu;
 import org.junit.jupiter.api.Test;
 import spd.trello.domain.Board;
 import spd.trello.domain.BoardVisibility;
+import spd.trello.domain.Workspace;
+import spd.trello.domain.WorkspaceVisibility;
 import spd.trello.repository.BoardDAO;
+import spd.trello.repository.WorkspaceDAO;
 import spd.trello.service.BoardService;
+import spd.trello.service.WorkspaceService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,16 +17,36 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BoardTest extends BaseTest{
+public class BoardTest extends BaseTest {
     private final BoardService service;
+    private Workspace workspace;
 
     public BoardTest() {
-        service = new BoardService(new BoardDAO(dataSource));
+        service = new BoardService(new BoardDAO());
+        workspace = new Workspace();
+        workspace.setName("FirstWorkspace");
+        workspace.setDescription("My lovely project about jdbc,flyway,database");
+        workspace.setVisibility(WorkspaceVisibility.PUBLIC);
+        workspace.setCreatedBy("klymovska.elina@gmail.com");
+        workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
+        workspace.setCreatedDate(LocalDateTime.now());
+        workspace.setUpdatedDate(LocalDateTime.now());
+        new WorkspaceService(new WorkspaceDAO()).create(workspace);
     }
 
     @Test
     public void successCreate() {
-        Board board = service.create();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        Board board = service.create(testBoard);
         assertNotNull(board);
         assertAll(
                 () -> assertNotNull(board.getId()),
@@ -41,12 +65,22 @@ public class BoardTest extends BaseTest{
     public void createFailure() {
         Board board = new Board();
         board.setName(null);
-        assertThrows(Exception.class, () -> new BoardDAO(dataSource).save(board));
+        assertThrows(Exception.class, () -> new BoardDAO().save(board));
     }
 
     @Test
     public void testFindById() {
-        UUID id = service.create().getId();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testBoard).getId();
         assertEquals(id, service.readById(id).getId());
     }
 
@@ -58,8 +92,28 @@ public class BoardTest extends BaseTest{
 
     @Test
     public void testFindAll() {
-        UUID id = service.create().getId();
-        UUID id1 = service.create().getId();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testBoard).getId();
+        Board testBoard2 = new Board();
+        testBoard2.setName("Board2");
+        testBoard2.setDescription("Board for my future2");
+        testBoard2.setVisibility(BoardVisibility.PUBLIC);
+        testBoard2.setWorkspace(workspace);
+        testBoard2.setArchived(false);
+        testBoard2.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard2.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard2.setCreatedDate(LocalDateTime.now());
+        testBoard2.setUpdatedDate(LocalDateTime.now());
+        UUID id1 = service.create(testBoard2).getId();
         List<Board> all = service.getAll();
         assertNotNull(all);
         assertAll(
@@ -71,12 +125,23 @@ public class BoardTest extends BaseTest{
 
     @Test
     public void successUpdate() {
-        Board initialBoard = service.create();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        Board initialBoard = service.create(testBoard);
 
         Board board = new Board();
         board.setName("TestBoard");
         board.setDescription("Testing update");
         board.setArchived(true);
+        board.setWorkspace(workspace);
         board.setUpdatedBy("testing@gmail.com");
         board.setCreatedBy(initialBoard.getCreatedBy());
         board.setCreatedDate(initialBoard.getCreatedDate());
@@ -96,7 +161,17 @@ public class BoardTest extends BaseTest{
 
     @Test
     public void updateFailure() {
-        Board initialBoard = service.create();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        Board initialBoard = service.create(testBoard);
         Board board = new Board();
         board.setName(null);
         board.setDescription(null);
@@ -105,7 +180,17 @@ public class BoardTest extends BaseTest{
 
     @Test
     public void successDelete() {
-        UUID id = service.create().getId();
+        Board testBoard = new Board();
+        testBoard.setName("Board");
+        testBoard.setDescription("Board for my future");
+        testBoard.setVisibility(BoardVisibility.PUBLIC);
+        testBoard.setWorkspace(workspace);
+        testBoard.setArchived(false);
+        testBoard.setCreatedBy("klymovska.elina@gmail.com");
+        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
+        testBoard.setCreatedDate(LocalDateTime.now());
+        testBoard.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testBoard).getId();
         assertEquals(service.readById(id), service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));
         service.delete(id);
         assertEquals(null, service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));

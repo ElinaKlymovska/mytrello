@@ -19,17 +19,16 @@ public class CardListService extends ServiceLayer<CardList>{
     }
 
     @Override
-    public CardList create() {
-        CardList cardList = new CardList();
+    public CardList create(CardList cardList) {
+/*        CardList cardList = new CardList();
         cardList.setName("cardList");
         cardList.setCards(new ArrayList<>());
         cardList.setArchived(false);
         cardList.setCreatedBy("klymovska.elina@gmail.com");
         cardList.setUpdatedBy("myfeatureknowlange@gmail.com");
         cardList.setCreatedDate(LocalDateTime.now());
-        cardList.setUpdatedDate(LocalDateTime.now());
-        repository.save(cardList);
-        return cardList;
+        cardList.setUpdatedDate(LocalDateTime.now());*/
+        return  repository.save(cardList);
     }
 
     @Override

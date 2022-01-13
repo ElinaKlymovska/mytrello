@@ -4,18 +4,17 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.User;
+import spd.trello.domain.Workspace;
 
 import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
-public class UserDAO {
+public class UserDAO implements IRepository<User>{
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
     public UserDAO(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
-        this.dataSource = dataSource;
     }
 
     public List<User> getAll() {
@@ -27,17 +26,19 @@ public class UserDAO {
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(User user) {
+    public User save(User user) {
 
         jdbcTemplate.update("INSERT INTO user(id,first_name,last_name,email,time_zone)" +
                         " VALUES(?,?,?,?,?)", user.getId(), user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getTimeZone());
+        return user;
     }
 
-    public void update(UUID id, User user) {
+    public User update(UUID id, User user) {
         jdbcTemplate.update("UPDATE user SET first_name=?, last_name=?, email=?,time_zone=? WHERE id=?",
                 user.getId(), user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.getTimeZone(), id);
+        return user;
     }
 
     public void delete(UUID id) {

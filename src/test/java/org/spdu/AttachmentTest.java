@@ -23,7 +23,15 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void successCreate() {
-        Attachment attachment = service.create();
+        Attachment createdAttachment = new Attachment();
+        createdAttachment.setName("Attachment");
+        createdAttachment.setLink("link");
+        createdAttachment.setFile(new File("resources/SomeFile"));
+        createdAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        createdAttachment.setCreatedDate(LocalDateTime.now());
+        createdAttachment.setUpdatedBy("-");
+        createdAttachment.setUpdatedDate(LocalDateTime.now());
+        Attachment attachment = service.create(createdAttachment);
         assertNotNull(attachment);
         assertAll(
                 () -> assertNotNull(attachment.getId()),
@@ -45,7 +53,15 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void testFindById() {
-        UUID id = service.create().getId();
+        Attachment createdAttachment = new Attachment();
+        createdAttachment.setName("Attachment");
+        createdAttachment.setLink("link");
+        createdAttachment.setFile(new File("resources/SomeFile"));
+        createdAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        createdAttachment.setCreatedDate(LocalDateTime.now());
+        createdAttachment.setUpdatedBy("-");
+        createdAttachment.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(createdAttachment).getId();
         assertEquals(id, service.readById(id).getId());
     }
 
@@ -57,8 +73,24 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void testFindAll() {
-        UUID id = service.create().getId();
-        UUID id1 = service.create().getId();
+        Attachment createdAttachment = new Attachment();
+        createdAttachment.setName("Attachment");
+        createdAttachment.setLink("link");
+        createdAttachment.setFile(new File("resources/SomeFile"));
+        createdAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        createdAttachment.setCreatedDate(LocalDateTime.now());
+        createdAttachment.setUpdatedBy("-");
+        createdAttachment.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(createdAttachment).getId();
+        Attachment testAttachment = new Attachment();
+        testAttachment.setName("Attachment2");
+        testAttachment.setLink("link2");
+        testAttachment.setFile(new File("resources/SomeFile2"));
+        testAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        testAttachment.setCreatedDate(LocalDateTime.now());
+        testAttachment.setUpdatedBy("-");
+        testAttachment.setUpdatedDate(LocalDateTime.now());
+        UUID id1 = service.create(testAttachment).getId();
         List<Attachment> all = service.getAll();
         assertNotNull(all);
         assertAll(
@@ -70,7 +102,15 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void successUpdate() {
-        Attachment initialAttachment = service.create();
+        Attachment testAttachment = new Attachment();
+        testAttachment.setName("Attachment2");
+        testAttachment.setLink("link2");
+        testAttachment.setFile(new File("resources/SomeFile2"));
+        testAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        testAttachment.setCreatedDate(LocalDateTime.now());
+        testAttachment.setUpdatedBy("-");
+        testAttachment.setUpdatedDate(LocalDateTime.now());
+        Attachment initialAttachment = service.create(testAttachment);
 
         Attachment attachment = new Attachment();
         attachment.setName("TestAttachment");
@@ -83,7 +123,7 @@ public class AttachmentTest extends BaseTest {
         assertNotNull(attachment);
         assertAll(
                 () -> assertEquals("TestAttachment", attachment.getName()),
-                () -> assertEquals(new File("resources\\SomeFile"), attachment.getFile()),
+                () -> assertEquals(new File("resources\\SomeFile2"), attachment.getFile()),
                 () -> assertEquals("klymovska.elina@gmail.com", attachment.getCreatedBy()),
                 () -> assertEquals("testing@gmail.com", attachment.getUpdatedBy()),
                 () -> assertNotNull(attachment.getUpdatedDate()),
@@ -93,7 +133,15 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void updateFailure() {
-        Attachment initialAttachment = service.create();
+        Attachment testAttachment = new Attachment();
+        testAttachment.setName("Attachment2");
+        testAttachment.setLink("link2");
+        testAttachment.setFile(new File("resources/SomeFile2"));
+        testAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        testAttachment.setCreatedDate(LocalDateTime.now());
+        testAttachment.setUpdatedBy("-");
+        testAttachment.setUpdatedDate(LocalDateTime.now());
+        Attachment initialAttachment = service.create(testAttachment);
         Attachment attachment = new Attachment();
         attachment.setName(null);
         assertThrows(Exception.class, () -> service.update(initialAttachment.getId(), attachment));
@@ -101,7 +149,15 @@ public class AttachmentTest extends BaseTest {
 
     @Test
     public void successDelete() {
-        UUID id = service.create().getId();
+        Attachment testAttachment = new Attachment();
+        testAttachment.setName("Attachment2");
+        testAttachment.setLink("link2");
+        testAttachment.setFile(new File("resources/SomeFile2"));
+        testAttachment.setCreatedBy("klymovska.elina@gmail.com");
+        testAttachment.setCreatedDate(LocalDateTime.now());
+        testAttachment.setUpdatedBy("-");
+        testAttachment.setUpdatedDate(LocalDateTime.now());
+        UUID id = service.create(testAttachment).getId();
         assertEquals(service.readById(id), service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));
         service.delete(id);
         assertEquals(null, service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));

@@ -17,12 +17,11 @@ public class CheckAbleItemService extends ServiceLayer<CheckableItem>{
     }
 
     @Override
-    public CheckableItem create() {
-        CheckableItem checkableItem = new CheckableItem();
+    public CheckableItem create(CheckableItem checkableItem) {
+/*        CheckableItem checkableItem = new CheckableItem();
         checkableItem.setName("FirstWorkspace");
-        checkableItem.setCheckedSwitcher(true);
-        repository.save(checkableItem);
-        return checkableItem;
+        checkableItem.setCheckedSwitcher(true);*/
+        return repository.save(checkableItem);
     }
 
     @Override

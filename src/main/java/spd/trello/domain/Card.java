@@ -21,4 +21,5 @@ public class Card extends Resource {
     private List<Comment> comments = new ArrayList<>();
     private Reminder reminder = new Reminder();
     private List<CheckList> checklists = new ArrayList<>();
+    private CardList cardList;
 }

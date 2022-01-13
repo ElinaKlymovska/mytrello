@@ -19,16 +19,15 @@ public class CheckListService extends ServiceLayer<CheckList>{
     }
 
     @Override
-    public CheckList create() {
-        CheckList checkList = new CheckList();
+    public CheckList create(CheckList checkList) {
+/*        CheckList checkList = new CheckList();
         checkList.setName("CheckList");
         checkList.setItems(new ArrayList<>());
         checkList.setCreatedBy("klymovska.elina@gmail.com");
         checkList.setUpdatedBy("myfeatureknowlange@gmail.com");
         checkList.setCreatedDate(LocalDateTime.now());
-        checkList.setUpdatedDate(LocalDateTime.now());
-        repository.save(checkList);
-        return checkList;
+        checkList.setUpdatedDate(LocalDateTime.now());*/
+        return repository.save(checkList);
     }
 
     @Override

@@ -15,7 +15,7 @@ public abstract class ServiceLayer <T> {
     }
 
     public abstract T readById(UUID id);
-    public abstract T create();
+    public abstract T create(T object);
     public abstract void update(UUID id, T object);
     public abstract void delete (UUID id);
     public abstract List<T> getAll();

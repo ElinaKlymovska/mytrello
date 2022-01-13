@@ -12,10 +12,8 @@ import java.util.UUID;
 
 public class ColorDAO implements IRepository<Color> {
     private final JdbcTemplate jdbcTemplate;
-    private final DataSource dataSource;
 
     public ColorDAO(DataSource dataSource) {
-        this.dataSource = dataSource;
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -30,13 +28,15 @@ public class ColorDAO implements IRepository<Color> {
                 .stream().findFirst().orElse(null);
     }
 
-    public void save(Color color) {
+    public Color save(Color color) {
         jdbcTemplate.update("INSERT INTO color(id,color) VALUES(?,?)",
                 color.getId(), color.getColor());
+        return color;
     }
 
-    public void update(UUID id, Color updatedColor) {
+    public Color update(UUID id, Color updatedColor) {
         jdbcTemplate.update("UPDATE color SET color=?, WHERE id=?",updatedColor.getColor(), id);
+        return updatedColor;
     }
 
     public void delete(UUID id) {
