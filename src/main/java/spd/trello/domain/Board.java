@@ -17,5 +17,5 @@ public class Board extends Resource {
     private BoardVisibility visibility = BoardVisibility.PUBLIC;
     //private Boolean favourite; //TODO
     private Boolean archived = false;
-    private Workspace workspace;
+    private UUID workspaceId;
 }

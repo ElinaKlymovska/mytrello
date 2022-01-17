@@ -13,6 +13,7 @@ public class CardListDAO implements IRepository<CardList> {
     private final JdbcTemplate jdbcTemplate;
 
     public CardListDAO() {
+
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 

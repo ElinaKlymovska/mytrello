@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
+import spd.trello.config.DataBaseConfiguration;
 
 public abstract class  BaseTest {
 
@@ -17,6 +18,7 @@ public abstract class  BaseTest {
 		cfg.setUsername("sa");
 		cfg.setDriverClassName("org.h2.Driver");
 		dataSource = new HikariDataSource(cfg);
+		DataBaseConfiguration.setDataSource(dataSource);
 		Flyway flyway = Flyway.configure()
 				.locations("classpath:migrations")
 				.dataSource(dataSource)

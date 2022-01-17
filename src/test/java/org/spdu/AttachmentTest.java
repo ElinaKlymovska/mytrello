@@ -18,7 +18,7 @@ public class AttachmentTest extends BaseTest {
     private final AttachmentService service;
 
     public AttachmentTest() {
-        service = new AttachmentService(new AttachmentDAO(dataSource));
+        service = new AttachmentService(new AttachmentDAO());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class AttachmentTest extends BaseTest {
     public void createFailure() {
         Attachment attachment = new Attachment();
         attachment.setName(null);
-        assertThrows(Exception.class, () -> new AttachmentDAO(dataSource).save(attachment));
+        assertThrows(Exception.class, () -> new AttachmentDAO().save(attachment));
     }
 
     @Test

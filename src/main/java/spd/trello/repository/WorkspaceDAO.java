@@ -5,16 +5,25 @@ import spd.trello.domain.Workspace;
 import spd.trello.config.DataBaseConfiguration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
 public class WorkspaceDAO implements IRepository<Workspace>{
 
     private final JdbcTemplate jdbcTemplate;
+    private static WorkspaceDAO workspaceDAO;
 
-    public WorkspaceDAO() {
+    private WorkspaceDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    }
+
+    public static WorkspaceDAO getInstance(){
+        if (workspaceDAO==null){
+            workspaceDAO=new WorkspaceDAO();
+            return workspaceDAO;
+        }else {
+            return workspaceDAO;
+        }
     }
 
     public List<Workspace> getAll() {

@@ -11,13 +11,29 @@ import java.util.Properties;
 
 public class DataBaseConfiguration {
     private static DataSource dataSource;
-
     static {
         try {
             dataSource = createDataSource();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    private static DataSource createDataSource() throws IOException {
+        Properties properties = loadProperties();
+
+        HikariConfig cfg = new HikariConfig();
+        cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
+        cfg.setUsername(properties.getProperty("jdbc.username"));
+        cfg.setPassword(properties.getProperty("jdbc.password"));
+
+        return new HikariDataSource(cfg);
+    }
+
+    public static DataSource getDataSource() {
+        return dataSource;
+    }
+    public static void setDataSource(DataSource dataSource1){
+        dataSource=dataSource1;
     }
 
     public static void startMigration() {
@@ -36,18 +52,4 @@ public class DataBaseConfiguration {
         return properties;
     }
 
-    private static DataSource createDataSource() throws IOException {
-        Properties properties = loadProperties();
-
-        HikariConfig cfg = new HikariConfig();
-        cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
-        cfg.setUsername(properties.getProperty("jdbc.username"));
-        cfg.setPassword(properties.getProperty("jdbc.password"));
-
-        return new HikariDataSource(cfg);
-    }
-
-    public static DataSource getDataSource() {
-        return dataSource;
-    }
 }

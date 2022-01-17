@@ -31,7 +31,7 @@ public class BoardTest extends BaseTest {
         workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedDate(LocalDateTime.now());
-        new WorkspaceService(new WorkspaceDAO()).create(workspace);
+        new WorkspaceService(WorkspaceDAO.getInstance()).create(workspace);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -74,7 +74,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -96,7 +96,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -107,7 +107,7 @@ public class BoardTest extends BaseTest {
         testBoard2.setName("Board2");
         testBoard2.setDescription("Board for my future2");
         testBoard2.setVisibility(BoardVisibility.PUBLIC);
-        testBoard2.setWorkspace(workspace);
+        testBoard2.setWorkspaceId(workspace.getId());
         testBoard2.setArchived(false);
         testBoard2.setCreatedBy("klymovska.elina@gmail.com");
         testBoard2.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -129,7 +129,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -141,7 +141,7 @@ public class BoardTest extends BaseTest {
         board.setName("TestBoard");
         board.setDescription("Testing update");
         board.setArchived(true);
-        board.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         board.setUpdatedBy("testing@gmail.com");
         board.setCreatedBy(initialBoard.getCreatedBy());
         board.setCreatedDate(initialBoard.getCreatedDate());
@@ -165,7 +165,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -184,7 +184,7 @@ public class BoardTest extends BaseTest {
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspace(workspace);
+        testBoard.setWorkspaceId(workspace.getId());
         testBoard.setArchived(false);
         testBoard.setCreatedBy("klymovska.elina@gmail.com");
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");

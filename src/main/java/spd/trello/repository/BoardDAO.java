@@ -26,7 +26,7 @@ public class BoardDAO implements IRepository<Board> {
 
     public Board save(Board board) {
         jdbcTemplate.update("INSERT INTO board(id,name,description,workspace_id,visibility,archived,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?,?,?,?)", board.getId(), board.getName(), board.getDescription(),board.getWorkspace().getId(),
+                        " VALUES(?,?,?,?,?,?,?,?,?,?)", board.getId(), board.getName(), board.getDescription(),board.getWorkspaceId(),
                 board.getVisibility().toString(), board.getArchived(), board.getCreatedBy(), board.getUpdatedBy(), board.getCreatedDate(),
                 board.getUpdatedDate());
         return board;
@@ -36,7 +36,7 @@ public class BoardDAO implements IRepository<Board> {
     public Board update(UUID id, Board updatedBoard) {
         jdbcTemplate.update("UPDATE board SET name=?, description=?,workspace_id=?,visibility=?,archived=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updatedBoard.getName(),
-                updatedBoard.getDescription(),updatedBoard.getWorkspace().getId(),
+                updatedBoard.getDescription(),updatedBoard.getWorkspaceId(),
                 updatedBoard.getVisibility().toString(), updatedBoard.getArchived(), updatedBoard.getCreatedBy(), updatedBoard.getUpdatedBy(), updatedBoard.getCreatedDate(), updatedBoard.getUpdatedDate(), id);
         return updatedBoard;
     }

@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import spd.trello.domain.Comment;
 import spd.trello.config.DataBaseConfiguration;
-import spd.trello.domain.Workspace;
 
 import javax.sql.DataSource;
 import java.util.List;

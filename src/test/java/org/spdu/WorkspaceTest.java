@@ -18,7 +18,7 @@ public class WorkspaceTest extends BaseTest {
     private final WorkspaceService service;
 
     public WorkspaceTest() {
-        service = new WorkspaceService(new WorkspaceDAO());
+        service = new WorkspaceService(WorkspaceDAO.getInstance());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class WorkspaceTest extends BaseTest {
     public void createFailure() {
         Workspace workspace = new Workspace();
         workspace.setName(null);
-        assertThrows(Exception.class, () -> new WorkspaceDAO().save(workspace));
+        assertThrows(Exception.class, () -> WorkspaceDAO.getInstance().save(workspace));
     }
 
     @Test

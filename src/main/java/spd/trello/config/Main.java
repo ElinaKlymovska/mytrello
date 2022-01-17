@@ -1,16 +1,5 @@
 package spd.trello.config;
 
-import spd.trello.config.DataBaseConfiguration;
-import spd.trello.domain.Board;
-import spd.trello.domain.BoardVisibility;
-import spd.trello.domain.Workspace;
-import spd.trello.domain.WorkspaceVisibility;
-import spd.trello.repository.WorkspaceDAO;
-import spd.trello.service.BoardService;
-import spd.trello.service.WorkspaceService;
-
-import java.time.LocalDateTime;
-
 public class Main {
     public static void main(String[] args) {
         DataBaseConfiguration.startMigration();
