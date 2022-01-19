@@ -4,7 +4,7 @@
     <title>Create Workspace</title>
 </head>
 <body>
-    <form method="post">
+    <form action="/workspace/create" method="post">
         <table>
             <tr>
                 <td>
@@ -29,28 +29,31 @@
                     <label for="visibility"> Visibility</label>
                 </td>
                 <td>
-                    <input type="text" id="visibility" name="visibility">
+                    <select name="visibility" id="visibility">
+                        <option value="PRIVATE" selected="">Private</option>
+                        <option value="PUBLIC">Public</option>
+                    </select>
                 </td>
             </tr>
 
-            <tr>
+<%--            <tr>
                 <td>
                     <label for="members">Members</label>
                 </td>
                 <td>
                     <input type="text" id="members" name="members">
                 </td>
-            </tr>
+            </tr>--%>
 
 
-            <tr>
+<%--            <tr>
                 <td>
                     <label for="boards">Boards</label>
                 </td>
                 <td>
                     <input type="text" id="boards" name="boards">
                 </td>
-            </tr>
+            </tr>--%>
 
 
             <tr>
@@ -64,5 +67,7 @@
         </table>
 
     </form>
+    <br>
+    <a href="/">Return to list</a>
 </body>
 </html>

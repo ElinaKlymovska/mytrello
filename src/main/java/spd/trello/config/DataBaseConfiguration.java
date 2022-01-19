@@ -11,6 +11,7 @@ import java.util.Properties;
 
 public class DataBaseConfiguration {
     private static DataSource dataSource;
+
     static {
         try {
             dataSource = createDataSource();
@@ -25,7 +26,7 @@ public class DataBaseConfiguration {
         cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
         cfg.setUsername(properties.getProperty("jdbc.username"));
         cfg.setPassword(properties.getProperty("jdbc.password"));
-
+        cfg.setDriverClassName("org.postgresql.Driver");
         return new HikariDataSource(cfg);
     }
 

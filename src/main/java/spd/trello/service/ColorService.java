@@ -11,30 +11,4 @@ public class ColorService extends ServiceLayer<Color>{
         super(repository);
     }
 
-    @Override
-    public Color readById(UUID id) {
-        return repository.getById(id);
-    }
-
-    @Override
-    public Color create(Color color) {
-/*        Color color = new Color();
-        color.setColor("F0F8FF");*/
-        return repository.save(color);
-    }
-
-    @Override
-    public void update(UUID id,Color color) {
-        repository.update(id, color);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        repository.delete(id);
-    }
-
-    @Override
-    public List<Color> getAll() {
-        return repository.getAll();
-    }
 }

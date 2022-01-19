@@ -4,16 +4,20 @@ import spd.trello.domain.Workspace;
 import spd.trello.domain.WorkspaceVisibility;
 import spd.trello.repository.WorkspaceDAO;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@WebServlet("/workspace/create")
-public class CreateWorkspaceServlet extends HttpServlet {
+@WebServlet("/workspace/update")
+public class UpdateWorkspaceServlet extends HttpServlet {
 
     private WorkspaceDAO workspaceDAO;
+    private Workspace workspace;
 
     @Override
     public void init() throws ServletException {
@@ -22,12 +26,13 @@ public class CreateWorkspaceServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/create-workspace.jsp").forward(request,response);
+        workspace=workspaceDAO.getById(UUID.fromString(request.getParameter("id")));
+        request.setAttribute("workspace", workspace);
+        request.getRequestDispatcher("/update-workspace.jsp").forward(request,response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Workspace workspace= new Workspace();
         workspace.setName(request.getParameter("name"));
         workspace.setDescription(request.getParameter("description"));
         workspace.setVisibility( WorkspaceVisibility.valueOf(request.getParameter("visibility")));
@@ -35,7 +40,7 @@ public class CreateWorkspaceServlet extends HttpServlet {
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedBy("someFeture@gmail.com");
         workspace.setUpdatedDate(LocalDateTime.now());
-        workspaceDAO.save(workspace);
+        workspaceDAO.update(workspace.getId(),workspace);
         response.sendRedirect("/");
     }
 }
