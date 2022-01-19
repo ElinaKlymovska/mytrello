@@ -13,7 +13,7 @@ public class CheckableItemDAO implements IRepository<CheckableItem>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CheckableItemDAO(DataSource dataSource) {
+    public CheckableItemDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -24,20 +24,21 @@ public class CheckableItemDAO implements IRepository<CheckableItem>{
 
     public CheckableItem getById(UUID id) {
         return jdbcTemplate.query("SELECT * FROM check_able_item WHERE id=?",
-                        new Object[]{id}, new BeanPropertyRowMapper<>(CheckableItem.class))
+                         new BeanPropertyRowMapper<>(CheckableItem.class),id)
                 .stream().findFirst().orElse(null);
 
     }
 
     public CheckableItem save(CheckableItem checkableItem) {
-        jdbcTemplate.update("INSERT INTO check_able_item(id,name,checked) VALUES(?,?,?)",
-                checkableItem.getId(), checkableItem.getName(), checkableItem.getCheckedSwitcher());
+        jdbcTemplate.update("INSERT INTO check_able_item(id,name,checked,cardlist_id) VALUES(?,?,?,?)",
+                checkableItem.getId(), checkableItem.getName(), checkableItem.getCheckedSwitcher(),
+                checkableItem.getCardListId());
         return checkableItem;
     }
 
     public CheckableItem update(UUID id, CheckableItem checkableItem) {
-        jdbcTemplate.update("UPDATE check_able_item SET name=?, checked=?, WHERE id=?",
-                checkableItem.getName(), checkableItem.getCheckedSwitcher(), id);
+        jdbcTemplate.update("UPDATE check_able_item SET name=?, checked=?, cardlist_id=? WHERE id=?",
+                checkableItem.getName(), checkableItem.getCheckedSwitcher(), checkableItem.getCardListId(),id);
         return checkableItem;
     }
 

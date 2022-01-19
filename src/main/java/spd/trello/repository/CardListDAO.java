@@ -22,14 +22,16 @@ public class CardListDAO implements IRepository<CardList> {
     }
 
     public CardList getById(UUID id) {
-        return jdbcTemplate.query("SELECT * FROM cardlist WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(CardList.class))
+        return jdbcTemplate.query("SELECT * FROM cardlist WHERE id=?",
+                        new BeanPropertyRowMapper<>(CardList.class),id)
                 .stream().findFirst().orElse(null);
     }
 
     public CardList save(CardList cardList) {
-        jdbcTemplate.update("INSERT INTO cardlist(id,name,archived,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?)", cardList.getId(), cardList.getName(), cardList.getArchived(),
-                cardList.getCreatedBy(), cardList.getUpdatedBy(), cardList.getCreatedDate(), cardList.getUpdatedDate());
+        jdbcTemplate.update("INSERT INTO cardlist(id,name,archived,board_id," +
+                        "created_by,updated_by,created_date,updated_date)" +
+                        " VALUES(?,?,?,?,?,?,?,?)", cardList.getId(), cardList.getName(), cardList.getArchived(),
+                cardList.getBoardId(), cardList.getCreatedBy(), cardList.getUpdatedBy(), cardList.getCreatedDate(), cardList.getUpdatedDate());
         return cardList;
     }
 

@@ -13,7 +13,7 @@ import java.util.UUID;
 public class MemberDAO implements IRepository<Member>{
     private final JdbcTemplate jdbcTemplate;
 
-    public MemberDAO(DataSource dataSource) {
+    public MemberDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -22,7 +22,7 @@ public class MemberDAO implements IRepository<Member>{
     }
 
     public Member getById(UUID id) {
-        return jdbcTemplate.query("SELECT * FROM member WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Member.class))
+        return jdbcTemplate.query("SELECT * FROM member WHERE id=?",new BeanPropertyRowMapper<>(Member.class),id)
                 .stream().findFirst().orElse(null);
     }
 

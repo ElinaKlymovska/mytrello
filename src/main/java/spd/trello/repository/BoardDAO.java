@@ -20,15 +20,16 @@ public class BoardDAO implements IRepository<Board> {
     }
 
     public Board getById(UUID id) {
-        return jdbcTemplate.query("SELECT * FROM board WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Board.class))
+        return jdbcTemplate.query("SELECT * FROM board WHERE id=?", new BeanPropertyRowMapper<>(Board.class),id)
                 .stream().findFirst().orElse(null);
     }
 
     public Board save(Board board) {
-        jdbcTemplate.update("INSERT INTO board(id,name,description,workspace_id,visibility,archived,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?,?,?,?)", board.getId(), board.getName(), board.getDescription(),board.getWorkspaceId(),
-                board.getVisibility().toString(), board.getArchived(), board.getCreatedBy(), board.getUpdatedBy(), board.getCreatedDate(),
-                board.getUpdatedDate());
+        jdbcTemplate.update("INSERT INTO board(id,name,description,workspace_id,visibility," +
+                        "archived,created_by,updated_by,created_date,updated_date)" +
+                        " VALUES(?,?,?,?,?,?,?,?,?,?)", board.getId(), board.getName(), board.getDescription(),
+                board.getWorkspaceId(), board.getVisibility().toString(), board.getArchived(), board.getCreatedBy(),
+                board.getUpdatedBy(), board.getCreatedDate(), board.getUpdatedDate());
         return board;
     }
 

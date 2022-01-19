@@ -27,8 +27,8 @@ public class CardDAO implements IRepository<Card> {
     }
 
     public Card save(Card card) {
-        jdbcTemplate.update("INSERT INTO card(id,name,description,archived,reminder_id, cardlist_id," +
-                        "created_by,updated_by,created_date,updated_date)" +
+        jdbcTemplate.update("INSERT INTO card(id,name,description,archived,reminder_id, " +
+                        "cardlist_id, created_by,updated_by,created_date,updated_date)" +
                         " VALUES(?,?,?,?,?,?,?,?,?,?)", card.getId(), card.getName(), card.getDescription(), card.getArchived(),
                 card.getReminder().getId(), card.getCardList().getId(),
                 card.getCreatedBy(), card.getUpdatedBy(), card.getCreatedDate(), card.getUpdatedDate());

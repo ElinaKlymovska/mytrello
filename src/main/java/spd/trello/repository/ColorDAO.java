@@ -24,7 +24,7 @@ public class ColorDAO implements IRepository<Color> {
 
     public Color getById(UUID id) {
         return jdbcTemplate.query("SELECT * FROM color WHERE id=?",
-                        new Object[]{id}, new BeanPropertyRowMapper<>(Color.class))
+                        new BeanPropertyRowMapper<>(Color.class),id)
                 .stream().findFirst().orElse(null);
     }
 

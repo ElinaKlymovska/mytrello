@@ -22,7 +22,8 @@ public class LabelDAO implements IRepository<Label> {
     }
 
     public Label getById(UUID id) {
-        return jdbcTemplate.query("SELECT * FROM label WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Label.class))
+        return jdbcTemplate.query("SELECT * FROM label WHERE id=?",
+                        new BeanPropertyRowMapper<>(Label.class),id)
                 .stream().findFirst().orElse(null);
     }
 

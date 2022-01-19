@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import lombok.EqualsAndHashCode;
 
@@ -14,4 +15,5 @@ public class Comment extends Resource{
     private String text;
     private LocalDateTime localDateTime;
     private List<Attachment> attachments;
+    private UUID cardId;
 }

@@ -24,19 +24,22 @@ public class CheckListDAO implements IRepository<CheckList>{
 
     public CheckList getById(UUID id) {
         return jdbcTemplate.query("SELECT * FROM checklist WHERE id=?",
-                        new Object[]{id}, new BeanPropertyRowMapper<>(CheckList.class))
+                        new BeanPropertyRowMapper<>(CheckList.class),id)
                 .stream().findFirst().orElse(null);
     }
 
     public CheckList save(CheckList checkList) {
-        jdbcTemplate.update("INSERT INTO checklist(id,name) VALUES(?,?)",
-                checkList.getId(), checkList.getName());
+        jdbcTemplate.update("INSERT INTO checklist(id,name,card_id,created_by,updated_by,created_date,updated_date) VALUES(?,?)",
+                checkList.getId(), checkList.getName(),checkList.getCardId(),checkList.getCreatedBy(),
+                checkList.getCreatedDate(), checkList.getUpdatedBy(),checkList.getUpdatedDate());
         return checkList;
     }
 
     public CheckList update(UUID id, CheckList updatedCheckList) {
-        jdbcTemplate.update("UPDATE checklist SET name=?, WHERE id=?",
-                updatedCheckList.getName(), id);
+        jdbcTemplate.update("UPDATE checklist SET name=? card_id=?" +
+                        "created_by=?,updated_by=?,created_date=?,updated_date=?, WHERE id=?",
+                updatedCheckList.getName(), updatedCheckList.getCardId(),updatedCheckList.getCreatedBy(),
+                updatedCheckList.getCreatedDate(), updatedCheckList.getUpdatedBy(),updatedCheckList.getUpdatedDate(),  id);
         return updatedCheckList;
     }
 
