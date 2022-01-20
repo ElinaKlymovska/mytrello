@@ -30,14 +30,14 @@ public class UserDAO implements IRepository<User>{
 
         jdbcTemplate.update("INSERT INTO users(id,first_name,last_name,email,time_zone)" +
                         " VALUES(?,?,?,?,?)", user.getId(), user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getTimeZone());
+                user.getEmail(), user.getTimeZone().toZoneId().toString());
         return user;
     }
 
     public User update(UUID id, User user) {
         jdbcTemplate.update("UPDATE users SET first_name=?, last_name=?, email=?,time_zone=? WHERE id=?",
                 user.getId(), user.getFirstName(), user.getLastName(),
-                user.getEmail(), user.getTimeZone(), id);
+                user.getEmail(), user.getTimeZone().toZoneId().toString(), id);
         return user;
     }
 

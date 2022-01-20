@@ -36,10 +36,11 @@ public class WorkspaceDAO implements IRepository<Workspace>{
     }
 
     public Workspace save(Workspace workspace) {
-        jdbcTemplate.update("INSERT INTO workspace(id,name,description,visibility,created_by,updated_by,created_date,updated_date)" +
-                        " VALUES(?,?,?,?,?,?,?,?)", workspace.getId(), workspace.getName(), workspace.getDescription(),
-                workspace.getVisibility().toString(),
-                workspace.getCreatedBy(), workspace.getUpdatedBy(), workspace.getCreatedDate(), workspace.getUpdatedDate());
+        jdbcTemplate.update("INSERT INTO workspace(id,name,description,visibility,created_by,updated_by," +
+                        "created_date,updated_date) VALUES(?,?,?,?,?,?,?,?)", workspace.getId(),
+                workspace.getName(), workspace.getDescription(), workspace.getVisibility().toString(),
+                workspace.getCreatedBy(), workspace.getUpdatedBy(), workspace.getCreatedDate(),
+                workspace.getUpdatedDate());
         return workspace;
     }
 

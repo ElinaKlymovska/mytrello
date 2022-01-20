@@ -36,9 +36,10 @@ public class CardListDAO implements IRepository<CardList> {
     }
 
     public CardList update(UUID id, CardList updetedCardList) {
-        jdbcTemplate.update("UPDATE cardlist SET name=?, description=?, visibility=?, " +
+        jdbcTemplate.update("UPDATE cardlist SET name=?, archived=?, board_id=?, " +
                         "created_by=?,updated_by=?,created_date=?,updated_date=? WHERE id=?", updetedCardList.getName(),
-                updetedCardList.getArchived(), updetedCardList.getCreatedBy(), updetedCardList.getUpdatedBy(), updetedCardList.getCreatedDate(), updetedCardList.getUpdatedDate(), id);
+                updetedCardList.getArchived(), updetedCardList.getBoardId(),
+                updetedCardList.getCreatedBy(), updetedCardList.getUpdatedBy(), updetedCardList.getCreatedDate(), updetedCardList.getUpdatedDate(), id);
         return updetedCardList;
     }
 

@@ -25,7 +25,7 @@ public class AttachmentTest extends BaseTest {
         user.setFirstName("Sam");
         user.setLastName("Li");
         user.setEmail("creativity@gmail.com");
-        user.setTimeZone(LocalDateTime.now());
+        user.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata"));
         new UserService(new UserDAO()).create(user);
         Member member = new Member();
         member.setRole(Role.GUEST);
@@ -161,7 +161,6 @@ public class AttachmentTest extends BaseTest {
     @Test
     public void successUpdate() {
         Attachment initialAttachment = service.create(createdAttachment);
-
         Attachment attachment = new Attachment();
         attachment.setName("TestAttachment");
         attachment.setFile(new File("resources\\SomeFile2"));

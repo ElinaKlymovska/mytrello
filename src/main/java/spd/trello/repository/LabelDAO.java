@@ -13,7 +13,7 @@ public class LabelDAO implements IRepository<Label> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public LabelDAO(DataSource dataSource) {
+    public LabelDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 

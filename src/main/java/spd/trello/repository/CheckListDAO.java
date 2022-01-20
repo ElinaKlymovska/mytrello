@@ -6,14 +6,13 @@ import spd.trello.domain.CheckList;
 import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Workspace;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 
 public class CheckListDAO implements IRepository<CheckList>{
     private final JdbcTemplate jdbcTemplate;
 
-    public CheckListDAO(DataSource dataSource) {
+    public CheckListDAO() {
         this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
     }
 
@@ -29,15 +28,15 @@ public class CheckListDAO implements IRepository<CheckList>{
     }
 
     public CheckList save(CheckList checkList) {
-        jdbcTemplate.update("INSERT INTO checklist(id,name,card_id,created_by,updated_by,created_date,updated_date) VALUES(?,?)",
+        jdbcTemplate.update("INSERT INTO checklist(id,name,card_id,created_by,created_date,updated_by,updated_date) VALUES(?,?,?,?,?,?,?)",
                 checkList.getId(), checkList.getName(),checkList.getCardId(),checkList.getCreatedBy(),
                 checkList.getCreatedDate(), checkList.getUpdatedBy(),checkList.getUpdatedDate());
         return checkList;
     }
 
     public CheckList update(UUID id, CheckList updatedCheckList) {
-        jdbcTemplate.update("UPDATE checklist SET name=? card_id=?" +
-                        "created_by=?,updated_by=?,created_date=?,updated_date=?, WHERE id=?",
+        jdbcTemplate.update("UPDATE checklist SET name=? ,card_id=?," +
+                        "created_by=?,created_date=?,updated_by=?,updated_date=? WHERE id=?",
                 updatedCheckList.getName(), updatedCheckList.getCardId(),updatedCheckList.getCreatedBy(),
                 updatedCheckList.getCreatedDate(), updatedCheckList.getUpdatedBy(),updatedCheckList.getUpdatedDate(),  id);
         return updatedCheckList;

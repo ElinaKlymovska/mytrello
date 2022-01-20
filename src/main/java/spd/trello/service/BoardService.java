@@ -12,29 +12,4 @@ public class BoardService extends ServiceLayer<Board> {
         super(repository);
     }
 
-    @Override
-    public Board readById(UUID id) {
-        return repository.getById(id);
-    }
-
-    @Override
-    public Board create(Board board) {
-        return repository.save(board);
-    }
-
-    @Override
-    public void update(UUID id, Board updatedBoard) {
-        repository.update(id, updatedBoard);
-    }
-
-    @Override
-    public void delete(UUID id) {
-        repository.delete(id);
-    }
-
-    @Override
-    public List<Board> getAll() {
-        return repository.getAll();
-    }
-
 }

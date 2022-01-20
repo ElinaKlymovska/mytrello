@@ -30,7 +30,7 @@ public class CheckableItemDAO implements IRepository<CheckableItem>{
     }
 
     public CheckableItem save(CheckableItem checkableItem) {
-        jdbcTemplate.update("INSERT INTO check_able_item(id,name,checked,cardlist_id) VALUES(?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO check_able_item (id,name,checked,cardlist_id) VALUES(?,?,?,?)",
                 checkableItem.getId(), checkableItem.getName(), checkableItem.getCheckedSwitcher(),
                 checkableItem.getCardListId());
         return checkableItem;

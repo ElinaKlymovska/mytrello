@@ -19,11 +19,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest extends BaseTest {
     private final BoardService service;
-    private Workspace workspace;
+    private Board testBoard;
 
     public BoardTest() {
         service = new BoardService(new BoardDAO());
-        workspace = new Workspace();
+        Workspace workspace = new Workspace();
         workspace.setName("FirstWorkspace");
         workspace.setDescription("My lovely project about jdbc,flyway,database");
         workspace.setVisibility(WorkspaceVisibility.PUBLIC);
@@ -32,11 +32,7 @@ public class BoardTest extends BaseTest {
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedDate(LocalDateTime.now());
         new WorkspaceService(WorkspaceDAO.getInstance()).create(workspace);
-    }
-
-    @Test
-    public void successCreate() {
-        Board testBoard = new Board();
+        testBoard = new Board();
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");
         testBoard.setVisibility(BoardVisibility.PUBLIC);
@@ -46,6 +42,10 @@ public class BoardTest extends BaseTest {
         testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
         testBoard.setCreatedDate(LocalDateTime.now());
         testBoard.setUpdatedDate(LocalDateTime.now());
+    }
+
+    @Test
+    public void successCreate() {
         Board board = service.create(testBoard);
         assertNotNull(board);
         assertAll(
@@ -70,16 +70,6 @@ public class BoardTest extends BaseTest {
 
     @Test
     public void testFindById() {
-        Board testBoard = new Board();
-        testBoard.setName("Board");
-        testBoard.setDescription("Board for my future");
-        testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspaceId(workspace.getId());
-        testBoard.setArchived(false);
-        testBoard.setCreatedBy("klymovska.elina@gmail.com");
-        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        testBoard.setCreatedDate(LocalDateTime.now());
-        testBoard.setUpdatedDate(LocalDateTime.now());
         UUID id = service.create(testBoard).getId();
         assertEquals(id, service.readById(id).getId());
     }
@@ -92,22 +82,12 @@ public class BoardTest extends BaseTest {
 
     @Test
     public void testFindAll() {
-        Board testBoard = new Board();
-        testBoard.setName("Board");
-        testBoard.setDescription("Board for my future");
-        testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspaceId(workspace.getId());
-        testBoard.setArchived(false);
-        testBoard.setCreatedBy("klymovska.elina@gmail.com");
-        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        testBoard.setCreatedDate(LocalDateTime.now());
-        testBoard.setUpdatedDate(LocalDateTime.now());
         UUID id = service.create(testBoard).getId();
         Board testBoard2 = new Board();
         testBoard2.setName("Board2");
         testBoard2.setDescription("Board for my future2");
         testBoard2.setVisibility(BoardVisibility.PUBLIC);
-        testBoard2.setWorkspaceId(workspace.getId());
+        testBoard2.setWorkspaceId(testBoard.getWorkspaceId());
         testBoard2.setArchived(false);
         testBoard2.setCreatedBy("klymovska.elina@gmail.com");
         testBoard2.setUpdatedBy("myfeatureknowlange@gmail.com");
@@ -125,23 +105,13 @@ public class BoardTest extends BaseTest {
 
     @Test
     public void successUpdate() {
-        Board testBoard = new Board();
-        testBoard.setName("Board");
-        testBoard.setDescription("Board for my future");
-        testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspaceId(workspace.getId());
-        testBoard.setArchived(false);
-        testBoard.setCreatedBy("klymovska.elina@gmail.com");
-        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        testBoard.setCreatedDate(LocalDateTime.now());
-        testBoard.setUpdatedDate(LocalDateTime.now());
         Board initialBoard = service.create(testBoard);
 
         Board board = new Board();
         board.setName("TestBoard");
         board.setDescription("Testing update");
         board.setArchived(true);
-        testBoard.setWorkspaceId(workspace.getId());
+        testBoard.setWorkspaceId(testBoard.getWorkspaceId());
         board.setUpdatedBy("testing@gmail.com");
         board.setCreatedBy(initialBoard.getCreatedBy());
         board.setCreatedDate(initialBoard.getCreatedDate());
@@ -161,16 +131,6 @@ public class BoardTest extends BaseTest {
 
     @Test
     public void updateFailure() {
-        Board testBoard = new Board();
-        testBoard.setName("Board");
-        testBoard.setDescription("Board for my future");
-        testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspaceId(workspace.getId());
-        testBoard.setArchived(false);
-        testBoard.setCreatedBy("klymovska.elina@gmail.com");
-        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        testBoard.setCreatedDate(LocalDateTime.now());
-        testBoard.setUpdatedDate(LocalDateTime.now());
         Board initialBoard = service.create(testBoard);
         Board board = new Board();
         board.setName(null);
@@ -180,16 +140,6 @@ public class BoardTest extends BaseTest {
 
     @Test
     public void successDelete() {
-        Board testBoard = new Board();
-        testBoard.setName("Board");
-        testBoard.setDescription("Board for my future");
-        testBoard.setVisibility(BoardVisibility.PUBLIC);
-        testBoard.setWorkspaceId(workspace.getId());
-        testBoard.setArchived(false);
-        testBoard.setCreatedBy("klymovska.elina@gmail.com");
-        testBoard.setUpdatedBy("myfeatureknowlange@gmail.com");
-        testBoard.setCreatedDate(LocalDateTime.now());
-        testBoard.setUpdatedDate(LocalDateTime.now());
         UUID id = service.create(testBoard).getId();
         assertEquals(service.readById(id), service.getAll().stream().filter(w -> w.getId().equals(id)).findAny().orElse(null));
         service.delete(id);
