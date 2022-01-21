@@ -1,4 +1,4 @@
-package test.app;
+package spd.trello.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -19,6 +19,23 @@ public class DataBaseConfiguration {
             e.printStackTrace();
         }
     }
+    private static DataSource createDataSource() throws IOException {
+        Properties properties = loadProperties();
+
+        HikariConfig cfg = new HikariConfig();
+        cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
+        cfg.setUsername(properties.getProperty("jdbc.username"));
+        cfg.setPassword(properties.getProperty("jdbc.password"));
+        cfg.setDriverClassName("org.postgresql.Driver");
+        return new HikariDataSource(cfg);
+    }
+
+    public static DataSource getDataSource() {
+        return dataSource;
+    }
+    public static void setDataSource(DataSource dataSource1){
+        dataSource=dataSource1;
+    }
 
     public static void startMigration() {
         Flyway flyway = createFlyway(dataSource);
@@ -26,7 +43,7 @@ public class DataBaseConfiguration {
     }
 
     private static Flyway createFlyway(DataSource dataSource) {
-        return Flyway.configure().dataSource(dataSource).load();
+        return Flyway.configure().locations("classpath:migrations").dataSource(dataSource).load();
     }
 
     private static Properties loadProperties() throws IOException {
@@ -36,18 +53,4 @@ public class DataBaseConfiguration {
         return properties;
     }
 
-    private static DataSource createDataSource() throws IOException {
-        Properties properties = loadProperties();
-
-        HikariConfig cfg = new HikariConfig();
-        cfg.setJdbcUrl(properties.getProperty("jdbc.url"));
-        cfg.setUsername(properties.getProperty("jdbc.username"));
-        cfg.setPassword(properties.getProperty("jdbc.password"));
-
-        return new HikariDataSource(cfg);
-    }
-
-    public static DataSource getDataSource() {
-        return dataSource;
-    }
 }

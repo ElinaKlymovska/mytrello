@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 public class Card extends Resource {
     private String name;
     private String description;
@@ -18,5 +20,6 @@ public class Card extends Resource {
     private Boolean archived = false;
     private List<Comment> comments = new ArrayList<>();
     private Reminder reminder = new Reminder();
-    private List<Checklist> checklists = new ArrayList<>();
+    private List<CheckList> checklists = new ArrayList<>();
+    private CardList cardList;
 }
