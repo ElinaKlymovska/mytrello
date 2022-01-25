@@ -2,13 +2,14 @@ package spd.trello.repository;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import spd.trello.domain.CheckList;
 import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Workspace;
 
 import java.util.List;
 import java.util.UUID;
-
+@Component
 public class CheckListDAO implements IRepository<CheckList>{
     private final JdbcTemplate jdbcTemplate;
 

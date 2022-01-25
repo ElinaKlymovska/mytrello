@@ -28,7 +28,7 @@ public class UpdateWorkspaceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         workspace=workspaceDAO.getById(UUID.fromString(request.getParameter("id")));
         request.setAttribute("workspace", workspace);
-        request.getRequestDispatcher("/update-workspace.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/update-workspace.jsp").forward(request,response);
     }
 
     @Override

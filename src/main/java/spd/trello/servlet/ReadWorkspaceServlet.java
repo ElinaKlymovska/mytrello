@@ -24,7 +24,7 @@ public class ReadWorkspaceServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Workspace workspace=workspaceDAO.getById(UUID.fromString(request.getParameter("id")));
         request.setAttribute("workspace", workspace);
-        request.getRequestDispatcher("/read-workspace.jsp").forward(request,response);
+        request.getRequestDispatcher("/WEB-INF/read-workspace.jsp").forward(request,response);
     }
 
 }

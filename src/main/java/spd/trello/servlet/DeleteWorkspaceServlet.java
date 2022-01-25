@@ -1,6 +1,5 @@
 package spd.trello.servlet;
 
-import spd.trello.domain.Workspace;
 import spd.trello.repository.WorkspaceDAO;
 
 import javax.servlet.ServletException;

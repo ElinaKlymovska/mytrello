@@ -2,12 +2,13 @@ package spd.trello.repository;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Reminder;
 
 import java.util.List;
 import java.util.UUID;
-
+@Component
 public class ReminderDAO implements IRepository<Reminder>{
     private final JdbcTemplate jdbcTemplate;
 

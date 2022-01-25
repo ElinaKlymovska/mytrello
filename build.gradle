@@ -16,6 +16,12 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.thymeleaf:thymeleaf-spring5:3.1.0.M1'
+    implementation 'org.springframework:spring-webmvc:5.3.15'
+    implementation 'org.springframework:spring-webmvc:3.1.1.RELEASE'
+    implementation("org.springframework:spring-core:5.3.15")
+    implementation("org.springframework:spring-context:5.3.15")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation 'javax.mail:javax.mail-api:1.6.2'
     implementation 'javax.mail:mail:1.4.7'
     providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
@@ -33,4 +39,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-
