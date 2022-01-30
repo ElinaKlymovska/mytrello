@@ -46,13 +46,13 @@ public class WorkspaceController {
         return "workspace/edit";
     }
 
-    @PatchMapping("/edit/{id}")
+    @PostMapping("/edit/{id}")
     public String update(@ModelAttribute("workspace") Workspace workspace, @PathVariable("id") UUID id) {
         workspaceService.update(id, workspace);
         return "redirect:/workspace";
     }
 
-    @DeleteMapping("/delete/{id}")
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") UUID id) {
         workspaceService.delete(id);
         return "redirect:/workspace";
