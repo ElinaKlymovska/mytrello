@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DataBaseConfiguration.class, FlywayMigrator.class);
+/*        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext
+                (WebAppConfig.class, FlywayMigrator.class);
 
         WorkspaceService service = context.getBean(WorkspaceService.class);
         Workspace workspace = new Workspace();
@@ -23,6 +24,6 @@ public class Main {
         Workspace demoworkspace = service.create(workspace);
 
         System.out.println(demoworkspace);
-        context.close();
+        context.close();*/
     }
 }

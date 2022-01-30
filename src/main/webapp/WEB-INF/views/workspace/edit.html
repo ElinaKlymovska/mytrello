@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit workspace</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{/workspace/edit/{id}(id=${workspace.getId()})}" th:object="${workspace}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/>
+    <label for="description">Enter description: </label>
+    <input type="text" th:field="*{description}" id="description"/>
+    <br/>
+    <label for="visibility">Enter visibility: </label>
+    <input type="text" th:field="*{visibility}" id="visibility"/>
+    <br/>
+    <input type="submit" value="Update!"/>
+</form>
+
+</body>
+</html>

@@ -6,15 +6,17 @@ import org.flywaydb.core.Flyway;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-@Configuration
-@ComponentScan(basePackages = {"spd.trello.repository", "spd.trello.service"})
 public class DataBaseConfiguration {
+
+    private DataBaseConfiguration() {
+    }
 
     private static DataSource dataSource;
 
@@ -26,7 +28,6 @@ public class DataBaseConfiguration {
         }
     }
 
-    @Bean
     private static DataSource createDataSource() throws IOException {
         Properties properties = loadProperties();
 
@@ -41,6 +42,7 @@ public class DataBaseConfiguration {
     public static DataSource getDataSource() {
         return dataSource;
     }
+
     public static void setDataSource(DataSource dataSource1){
         dataSource=dataSource1;
     }
