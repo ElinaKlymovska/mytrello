@@ -1,7 +1,8 @@
 plugins {
+    id 'org.springframework.boot' version '2.6.3'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
-    id 'war'
 }
 jacoco {
     version = "0.8.6"
@@ -19,13 +20,13 @@ repositories {
 dependencies {
     implementation "org.thymeleaf:thymeleaf:3.0.14.RELEASE"
     implementation "org.thymeleaf:thymeleaf-spring5:3.0.12.RELEASE"
-    implementation 'org.springframework:spring-webmvc:5.3.15'
-    implementation("org.springframework:spring-core:5.3.15")
-    implementation("org.springframework:spring-context:5.3.15")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
-    implementation 'javax.mail:javax.mail-api:1.6.2'
-    implementation 'javax.mail:mail:1.4.7'
-    providedCompile 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.3'
+
+/*    implementation 'javax.mail:javax.mail-api:1.6.2'
+    implementation 'javax.mail:mail:1.4.7'*/
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     implementation 'org.projectlombok:lombok-maven-plugin:1.18.20.0'
     implementation 'org.postgresql:postgresql:42.3.1'
@@ -40,4 +41,3 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-

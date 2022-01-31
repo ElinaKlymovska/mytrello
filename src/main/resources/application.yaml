@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: mytrello
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/trello
+    username: postgres
+    password: salamandra
+    hikari:
+      maximum-pool-size: 50
+  jdbc:
+    template:
+      max-rows: 500
+  flyway:
+    enabled: true
+    locations: "classpath:migrations"
+  #  jpa:
+#    show-sql: true
+#    open-in-view: false
+#    properties:
+#      hibernate.format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+server:
+  error:
+    include-message: always
+    include-exception: true
+
+application:
+  pagination-feature: true
