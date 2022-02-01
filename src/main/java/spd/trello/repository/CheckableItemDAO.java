@@ -4,9 +4,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.CheckableItem;
-import spd.trello.config.DataBaseConfiguration;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 @Component
@@ -14,10 +12,9 @@ public class CheckableItemDAO implements IRepository<CheckableItem>{
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CheckableItemDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public CheckableItemDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<CheckableItem> getAll() {
         return jdbcTemplate.query("SELECT * FROM check_able_item",
                 new BeanPropertyRowMapper<>(CheckableItem.class));

@@ -3,10 +3,8 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Label;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 @Component
@@ -14,10 +12,9 @@ public class LabelDAO implements IRepository<Label> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public LabelDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public LabelDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<Label> getAll() {
         return jdbcTemplate.query("SELECT * FROM label", new BeanPropertyRowMapper<>(Label.class));
     }

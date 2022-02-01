@@ -3,28 +3,18 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Workspace;
-import spd.trello.config.DataBaseConfiguration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.util.List;
 import java.util.UUID;
+
 @Component
-public class WorkspaceDAO implements IRepository<Workspace>{
+public class WorkspaceDAO implements IRepository<Workspace> {
 
     private final JdbcTemplate jdbcTemplate;
-    private static WorkspaceDAO workspaceDAO;
 
-    private WorkspaceDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
-    }
-
-    public static WorkspaceDAO getInstance(){
-        if (workspaceDAO==null){
-            workspaceDAO=new WorkspaceDAO();
-            return workspaceDAO;
-        }else {
-            return workspaceDAO;
-        }
+    public WorkspaceDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Workspace> getAll() {

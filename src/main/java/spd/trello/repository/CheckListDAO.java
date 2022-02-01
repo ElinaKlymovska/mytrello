@@ -4,8 +4,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.CheckList;
-import spd.trello.config.DataBaseConfiguration;
-import spd.trello.domain.Workspace;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,10 +11,9 @@ import java.util.UUID;
 public class CheckListDAO implements IRepository<CheckList>{
     private final JdbcTemplate jdbcTemplate;
 
-    public CheckListDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public CheckListDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<CheckList> getAll() {
         return jdbcTemplate.query("SELECT * FROM checklist",
                 new BeanPropertyRowMapper<>(CheckList.class));

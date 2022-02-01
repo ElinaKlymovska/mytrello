@@ -34,7 +34,7 @@ public class CheckAbleItemServiceTest extends BaseTest{
         workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedDate(LocalDateTime.now());
-        new WorkspaceService(WorkspaceDAO.getInstance()).create(workspace);
+        new WorkspaceService(new WorkspaceDAO()).create(workspace);
         Board testBoard = new Board();
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");

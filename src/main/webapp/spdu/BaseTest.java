@@ -4,8 +4,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeAll;
-import spd.trello.config.DataBaseConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public abstract class  BaseTest {
 
 	protected static HikariDataSource dataSource;

@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Color;
-import spd.trello.config.DataBaseConfiguration;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,10 +12,9 @@ import java.util.UUID;
 public class ColorDAO implements IRepository<Color> {
     private final JdbcTemplate jdbcTemplate;
 
-    public ColorDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public ColorDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<Color> getAll() {
         return jdbcTemplate.query("SELECT * FROM checklist",
                 new BeanPropertyRowMapper<>(Color.class));

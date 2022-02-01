@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Board;
-import spd.trello.config.DataBaseConfiguration;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,8 +11,8 @@ import java.util.UUID;
 public class BoardDAO implements IRepository<Board> {
     private final JdbcTemplate jdbcTemplate;
 
-    public BoardDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public BoardDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Board> getAll() {

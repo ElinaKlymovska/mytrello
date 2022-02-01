@@ -1,6 +1,7 @@
 package org.spdu;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import spd.trello.domain.Workspace;
 import spd.trello.domain.WorkspaceVisibility;
 import spd.trello.repository.WorkspaceDAO;
@@ -14,14 +15,14 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@SpringBootTest
 public class WorkspaceTest extends BaseTest {
 
     private final WorkspaceService service;
     private Workspace testWorkspace;
 
     public WorkspaceTest() {
-        service = new WorkspaceService(WorkspaceDAO.getInstance());
+        service = new WorkspaceService(new WorkspaceDAO());
         testWorkspace = new Workspace();
         testWorkspace.setName("FirstWorkspace");
         testWorkspace.setDescription("My lovely project about jdbc,flyway,database");
@@ -62,7 +63,7 @@ public class WorkspaceTest extends BaseTest {
     public void createFailure() {
         Workspace workspace = new Workspace();
         workspace.setName(null);
-        assertThrows(Exception.class, () -> WorkspaceDAO.getInstance().save(workspace));
+        assertThrows(Exception.class, () -> new WorkspaceDAO().save(workspace));
     }
 
     @Test

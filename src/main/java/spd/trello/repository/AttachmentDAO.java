@@ -4,16 +4,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Attachment;
-import spd.trello.config.DataBaseConfiguration;
 
 import java.util.List;
 import java.util.UUID;
 @Component
 public class AttachmentDAO implements IRepository<Attachment> {
+
     private final JdbcTemplate jdbcTemplate;
 
-    public AttachmentDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public AttachmentDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<Attachment> getAll() {

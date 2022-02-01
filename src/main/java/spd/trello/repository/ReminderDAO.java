@@ -3,7 +3,6 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.Reminder;
 
 import java.util.List;
@@ -12,10 +11,9 @@ import java.util.UUID;
 public class ReminderDAO implements IRepository<Reminder>{
     private final JdbcTemplate jdbcTemplate;
 
-    public ReminderDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public ReminderDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<Reminder> getAll() {
         return jdbcTemplate.query("SELECT * FROM reminder", new BeanPropertyRowMapper<>(Reminder.class));
     }

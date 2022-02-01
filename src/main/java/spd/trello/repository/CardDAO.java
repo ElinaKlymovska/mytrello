@@ -4,20 +4,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Card;
-import spd.trello.config.DataBaseConfiguration;
-import spd.trello.domain.CheckableItem;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 @Component
 public class CardDAO implements IRepository<Card> {
     private final JdbcTemplate jdbcTemplate;
 
-    public CardDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public CardDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<Card> getAll() {
         return jdbcTemplate.query("SELECT * FROM card", new BeanPropertyRowMapper<>(Card.class));
     }

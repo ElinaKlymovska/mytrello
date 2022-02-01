@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.CardList;
-import spd.trello.config.DataBaseConfiguration;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,9 +12,8 @@ public class CardListDAO implements IRepository<CardList> {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public CardListDAO() {
-
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public CardListDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public List<CardList> getAll() {

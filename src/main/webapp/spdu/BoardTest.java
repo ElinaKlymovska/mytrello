@@ -31,7 +31,7 @@ public class BoardTest extends BaseTest {
         workspace.setUpdatedBy("myfeatureknowlange@gmail.com");
         workspace.setCreatedDate(LocalDateTime.now());
         workspace.setUpdatedDate(LocalDateTime.now());
-        new WorkspaceService(WorkspaceDAO.getInstance()).create(workspace);
+        new WorkspaceService(new WorkspaceDAO()).create(workspace);
         testBoard = new Board();
         testBoard.setName("Board");
         testBoard.setDescription("Board for my future");

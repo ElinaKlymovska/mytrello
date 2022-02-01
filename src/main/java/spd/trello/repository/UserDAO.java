@@ -3,21 +3,17 @@ package spd.trello.repository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import spd.trello.config.DataBaseConfiguration;
 import spd.trello.domain.User;
-import spd.trello.domain.Workspace;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 @Component
 public class UserDAO implements IRepository<User>{
     private final JdbcTemplate jdbcTemplate;
 
-    public UserDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public UserDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<User> getAll() {
         return jdbcTemplate.query("SELECT * FROM users", new BeanPropertyRowMapper<>(User.class));
     }

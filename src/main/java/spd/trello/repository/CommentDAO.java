@@ -4,19 +4,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import spd.trello.domain.Comment;
-import spd.trello.config.DataBaseConfiguration;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 @Component
 public class CommentDAO implements IRepository<Comment>{
     private final JdbcTemplate jdbcTemplate;
 
-    public CommentDAO() {
-        this.jdbcTemplate = new JdbcTemplate(DataBaseConfiguration.getDataSource());
+    public CommentDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
-
     public List<Comment> getAll() {
         return jdbcTemplate.query("SELECT * FROM comment",
                 new BeanPropertyRowMapper<>(Comment.class));
