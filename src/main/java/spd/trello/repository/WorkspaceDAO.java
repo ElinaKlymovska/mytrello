@@ -1,13 +1,14 @@
 package spd.trello.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import spd.trello.domain.Workspace;
 import spd.trello.config.DataBaseConfiguration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.util.List;
 import java.util.UUID;
-
+@Component
 public class WorkspaceDAO implements IRepository<Workspace>{
 
     private final JdbcTemplate jdbcTemplate;

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Worspace list</title>
+</head>
+<body>
+<div th:each="workspace : ${workspaces}">
+    <a th:href="@{/workspace/{id}(id=${workspace.getId()})}" th:text="${workspace.getName()}">workspace</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/workspace/new">Create new workspace</a>
+</body>
+</html>

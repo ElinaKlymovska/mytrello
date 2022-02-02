@@ -2,12 +2,13 @@ package spd.trello.repository;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import spd.trello.domain.Board;
 import spd.trello.config.DataBaseConfiguration;
 
 import java.util.List;
 import java.util.UUID;
-
+@Component
 public class BoardDAO implements IRepository<Board> {
     private final JdbcTemplate jdbcTemplate;
 

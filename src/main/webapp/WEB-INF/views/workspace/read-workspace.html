@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show workspace</title>
+</head>
+<body>
+<p th:text="${workspace.getName()}">VALUE</p>
+<p th:text="${workspace.getDescription()}">VALUE</p>
+<p th:text="${workspace.getCreatedBy()}">VALUE</p>
+<p th:text="${workspace.getCreatedDate()}">VALUE</p>
+<p th:text="${workspace.getUpdatedBy()}">VALUE</p>
+<p th:text="${workspace.getCreatedDate()}">VALUE</p>
+
+<a th:href="@{/workspace/{id}/edit(id=${workspace.getId()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/workspace/delete/{id}(id=${workspace.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
