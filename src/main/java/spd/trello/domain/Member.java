@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Member extends Domain{
+public class Member extends Resource{
     private User user;
     private Role role;
 }

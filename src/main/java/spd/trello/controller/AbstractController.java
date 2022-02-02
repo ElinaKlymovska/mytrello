@@ -3,6 +3,7 @@ package spd.trello.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import spd.trello.domain.Resource;
 import spd.trello.exception.ResourceNotFoundException;
 import spd.trello.service.CommonService;
 
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class AbstractController< E , S extends CommonService<E>>
+public class AbstractController< E extends Resource, S extends CommonService<E>>
         implements CommonController<E> {
 
     S service;
@@ -18,7 +19,6 @@ public class AbstractController< E , S extends CommonService<E>>
     public AbstractController(S service){
         this.service = service;
     }
-
 
     @PostMapping
     @Override
@@ -33,10 +33,10 @@ public class AbstractController< E , S extends CommonService<E>>
     public ResponseEntity<E> update(@PathVariable UUID id, @RequestBody E resource) {
         E entity = service.readById(id);
         if (entity == null) throw new ResourceNotFoundException();
-/*        resource.setCreatedBy("klymovska.elina@gmail.com");
+        resource.setCreatedBy("klymovska.elina@gmail.com");
         resource.setUpdatedBy("myfeatureknowlange@gmail.com");
         resource.setCreatedDate(LocalDateTime.now());
-        resource.setUpdatedDate(LocalDateTime.now());*/
+        resource.setUpdatedDate(LocalDateTime.now());
         E result = service.update(id, resource);
         return new ResponseEntity(result, HttpStatus.OK);
     }

@@ -18,6 +18,6 @@ public class GlobalExceptionHandler
             RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "Something went wrong...";
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.I_AM_A_TEAPOT, request);
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }

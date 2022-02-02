@@ -7,7 +7,7 @@ import spd.trello.domain.Resource;
 import java.util.List;
 import java.util.UUID;
 
-public interface CommonController<E> {
+public interface CommonController<E extends Resource> {
 
     ResponseEntity<E> create(E resource);
     ResponseEntity<E> update(UUID id, E resource);
